@@ -5,6 +5,8 @@
  */
 package com.sg.FinancialApp.data;
 
+import com.sg.FinancialApp.models.User;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,5 +15,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserDao {
-    
+    List<User> getAllUsers();
+    User getUserById(int id);
+    User addUser();
+    void updateUser(User user);
+    void deleteUserById(int id);
 }
