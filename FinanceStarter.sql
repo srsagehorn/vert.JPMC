@@ -20,8 +20,8 @@ create table user_request(
 	requestId int not null,
     userId int not null,
     primary key(requestId, userId),
-    foreign key(requestId) references request.requestId,
-    foreign key(userId) references user.userId
+    foreign key fkRequestID(requestId) references request.requestId,
+    foreign key fkUserID(userId) references user.userId
 );
 
 
