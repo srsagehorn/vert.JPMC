@@ -6,6 +6,7 @@
 package com.sg.FinancialApp.data;
 
 import com.sg.FinancialApp.models.Request;
+import com.sg.FinancialApp.models.User;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,6 +26,11 @@ public class RequestDaoDB implements RequestDao {
 
     @Override
     public List<Request> getAllRequests() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Request> getRequestsForUser(User user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
