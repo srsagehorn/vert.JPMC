@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -66,12 +67,24 @@ public class RequestDaoDB implements RequestDao {
 
     @Override
     public void updateRequest(Request request) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String UPDATE_GAME = "UPDATE request " +
+                "SET timestamp = ?, stockCode = ?, value = ? " +
+                "WHERE id = ?; ";
+        jdbc.update(UPDATE_GAME, 
+                request.getTimestamp(), 
+                request.getStockCode(),
+                request.getValue(),
+                request.getId());
     }
 
     @Override
+    @Transactional
     public void deleteRequestById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String DELETE_USER_REQUEST = "DELETE FROM user_request WHERE requestId = ?";
+        jdbc.update(DELETE_USER_REQUEST, id);
+        
+        String DELETE_REQUEST = "DELETE FROM request WHERE id = ?";
+        jdbc.update(DELETE_REQUEST, id);
     }
     
     public static final class RequestMapper implements RowMapper<Request> {
