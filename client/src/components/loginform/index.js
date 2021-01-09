@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Login() {
+export default function LoginForm() {
 
     const classes = useStyles();
     const { handleSubmit, register } = useForm();

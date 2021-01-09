@@ -1,13 +1,13 @@
 import React from 'react'
 import Nav from '../../components/nav'
-import Login from '../../components/login'
+import LoginForm from '../../components/loginform'
 
 
 export default function LoginPage() {
     return (
         <div>
             <Nav />
-            {/* <Login /> */}
+            <LoginForm />
           
         </div>
     )
