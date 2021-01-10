@@ -2,9 +2,10 @@
 // import React, { Component } from "react";
 // import { BrowserRouter, Route} from "react-router-dom";
 import React from "react"
-import Search from "./pages/search"
+import SearchPage from "./pages/SearchPage"
 import Summary from "./pages/summary"
 import Login from "./pages/login"
+import StockInfoContextProvider from "./contexts/StockInfoContext"
 // import Portoflio from './pages/portfolio'
 import './styles.css'
 
@@ -24,12 +25,14 @@ import './styles.css'
 // }
 
 function App() {
-  return(
-  <div>
-    <Login />
-    <Search />
-    <Summary />
-  </div>
+  return (
+    <div>
+      <StockInfoContextProvider>
+        <Login />
+        <SearchPage />
+        <Summary />
+      </StockInfoContextProvider>
+    </div>
   )
 }
 

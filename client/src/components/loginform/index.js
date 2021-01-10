@@ -36,7 +36,7 @@ export default function LoginForm() {
         <Container maxWidth="xs" className={classes.container}>
             <Paper className={classes.paper}>
                 <form onSubmit={onSubmit}>
-                    <Grid container spacing={3}>
+                    <Grid container spacing={3} justify="center">
                         <Grid item xs={12} >
                             <Grid container spacing={2} >
                                 <Grid item xs={12}>
@@ -66,9 +66,9 @@ export default function LoginForm() {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item container spacing={2} xs={12}>
-                        <Grid item xs={12}>
-                            <Button fullWidth type="submit" variant="contained" color="primary">
+                        <Grid item container spacing={2} justify="center" xs={12}>
+                        <Grid item xs={12} >
+                            <Button fullWidth  type="submit" variant="contained" color="primary">
                                 Login
                         </Button>
 
