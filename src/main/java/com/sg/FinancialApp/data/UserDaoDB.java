@@ -40,7 +40,8 @@ public class UserDaoDB implements UserDao {
     // NOT TESTED
     @Override
     public User getUserById(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String sql = "SELECT userId, email FROM finance.user WHERE userID = ?";
+        return jdbc.queryForObject(sql, new UserMapper());
     }
 
 
@@ -59,7 +60,6 @@ public class UserDaoDB implements UserDao {
     @Override
     public void updateUser(User user) {
         final String sql = "UPDATE finance.user SET email = ? WHERE userId = ?";
-        // May need to check the update.
         jdbc.update(sql, user.getId(), user.getEmail());
 
     }
