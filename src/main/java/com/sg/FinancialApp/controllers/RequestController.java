@@ -7,14 +7,17 @@ package com.sg.FinancialApp.controllers;
 
 import com.sg.FinancialApp.data.RequestDao;
 import com.sg.FinancialApp.data.UserDao;
+import com.sg.FinancialApp.models.Request;
 import com.sg.FinancialApp.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.cassandra.CassandraProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.function.EntityResponse;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,6 +41,25 @@ public class RequestController {
 
     // NEED Request for time, stockCode, and value - POST
 
+    @PostMapping("/request/{time}/{stock}/{value}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Request addUser(@PathVariable Date time, @PathVariable String stock, @PathVariable String value) {
+        Request r = new Request();
+        r.setTimestamp(time);
+        r.setStockCode(stock);
+        r.setValue(value);
+        return requestDao.addRequest(r);
+    }
+
+
+    // NEED GET fro time, stockCode, and value - GET ( get request with submitted and current val)
+    @GetMapping("/request/{userId}")
+    public List<Request> getAllRequestsByUserId(){
+
+
+        return null;
+    }
+
 
     //NOT TESTED
     @GetMapping("/stock/{symbol}")
@@ -47,13 +69,24 @@ public class RequestController {
     }
 
     //Inserting use email into database using POST (PASSED TEST - NO EDGE CASE VALIDATION YET)
-    @PostMapping("/create/{email}")
+    @PostMapping("/create/{userId}/{email}")
     @ResponseStatus(HttpStatus.CREATED)
-    public User addUser(@PathVariable String email) {
+    public User addUser(@PathVariable int userId, @PathVariable String email) {
         User user = new User();
+        user.setId(userId);
         user.setEmail(email);
         return userDao.addUser(user);
     }
+
+    // Login, summary, portfolio, search
+
+
+    // Login -> authentication userName or userEmail
+        // delete username as id to delete stock.
+    // search stock and save it to dv ->  time, stock, value
+    // summary - table -> frontEnd
+        // getrequests summary for when the request was input into db and when it was retrieved (stock value -submitted -current)
+
 
 
     // Getting users from the database (PASSED - NO EDGE CASE VALIDATION YET)
