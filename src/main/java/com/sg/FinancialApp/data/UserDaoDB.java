@@ -14,6 +14,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -64,7 +65,6 @@ public class UserDaoDB implements UserDao {
     public void updateUser(User user) {
         final String UPDATE_USER = "UPDATE user SET email = ? WHERE userId = ?";
         jdbc.update(UPDATE_USER, user.getEmail(), user.getId());
-
     }
 
     // NOT TESTED
