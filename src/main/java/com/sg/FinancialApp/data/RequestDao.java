@@ -16,10 +16,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RequestDao {
-    List<Request> getAllRequests(String userId);
+    List<Request> getAllRequests();
     List<Request> getRequestsForUser(User user);
     Request getRequestById(int id);
-    Request addRequest(String userId, Request request);
+    Request addRequest(Request request);
     void updateRequest(Request request);
     void deleteRequestById(int id);
 }

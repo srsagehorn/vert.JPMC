@@ -39,7 +39,7 @@ public class UserDaoDB implements UserDao {
 
     // NOT TESTED
     @Override
-    public User getUserById(int id) {
+    public User getUserById(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -64,10 +64,10 @@ public class UserDaoDB implements UserDao {
 
     }
 
-    // NOT TESTED
+    // FUNCTIONAL
     @Override
-    public void deleteUserById(int id) {
-        final String sql = "DELETE FROM todo WHERE id = ?";
+    public void deleteUserById(String id) {
+        final String sql = "DELETE FROM finance.user WHERE userId = ?";
         jdbc.update(sql, id);
     }
     
