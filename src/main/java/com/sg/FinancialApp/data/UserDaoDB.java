@@ -30,7 +30,6 @@ public class UserDaoDB implements UserDao {
         this.jdbc = jdbcTemplate;
     }
 
-
     // FUNCTIONAL
     @Override
     public List<User> getAllUsers() {
