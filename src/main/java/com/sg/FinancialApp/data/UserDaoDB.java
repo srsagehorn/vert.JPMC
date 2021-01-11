@@ -28,36 +28,55 @@ public class UserDaoDB implements UserDao {
         this.jdbc = jdbcTemplate;
     }
 
+
+    // FUNCTIONAL
     @Override
     public List<User> getAllUsers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String sql = "SELECT userId, email FROM finance.user";
+        return jdbc.query(sql, new UserMapper());
     }
 
+
+    // NOT TESTED
     @Override
     public User getUserById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+
+    // FUNCTIONAL
     @Override
-    public User addUser() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public User addUser(User user) {
+        final String INSERT_USER = "INSERT INTO user(email) VALUES(?)";
+        jdbc.update(INSERT_USER, user.getEmail());
+        int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        user.setId(newId);
+        return user;
     }
 
+
+    // NOT TESTED
     @Override
     public void updateUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String sql = "UPDATE finance.user SET email = ? WHERE userId = ?";
+        // May need to check the update.
+        jdbc.update(sql, user.getId(), user.getEmail());
+
     }
 
+    // NOT TESTED
     @Override
     public void deleteUserById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String sql = "DELETE FROM todo WHERE id = ?";
+        jdbc.update(sql, id);
     }
     
-    public static final class RequestMapper implements RowMapper<User> {
+    public static final class UserMapper implements RowMapper<User> {
         @Override
         public User mapRow(ResultSet rs, int index) throws SQLException {
             User user = new User();
-            user.setId(rs.getInt("requestId"));
+            user.setId(rs.getInt("userId"));
+            user.setEmail(rs.getString("email"));
             return user;
         }
     }
