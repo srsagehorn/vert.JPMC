@@ -64,13 +64,13 @@ public class RequestController {
 
     // NOT TESTED
     @GetMapping("/user/{id}")
-    public User getUserById(@PathVariable int id) {
+    public User getUserById(@PathVariable String id) {
         return userDao.getUserById(id);
     }
 
     //NOT TESTED
     @DeleteMapping("/user/{id}")
-    public void deleteUSerById(@PathVariable int id) {
+    public void deleteUserById(@PathVariable String id) {
         userDao.deleteUserById(id);
         // Need a kind of response to show the user was or was not deleted
     }
