@@ -7,6 +7,7 @@ use financeTest;
 create table request(
 	requestId int primary key auto_increment not null,
     reqTime datetime not null,
+    quantity dec(6,6) not null,
     stockCode varchar(4) not null,
     value dec(6,2) not null
 );
@@ -20,8 +21,8 @@ create table user_request(
 	requestId int not null,
     userId int not null,
     primary key(requestId, userId),
-    foreign key fkRequestID(requestId) references request(requestId),
-    foreign key fkUserID(userId) references user(userId)
+    foreign key fkRequestID (requestId) references request (requestId),
+    foreign key fkUserID (userId) references user (userId)
 );
 
 
@@ -34,6 +35,7 @@ use finance;
 create table request(
 	requestId int primary key auto_increment not null,
     reqTime datetime not null,
+    quantity dec(6,6) not null,
     stockCode varchar(4) not null,
     value dec(6,2) not null
 );
@@ -47,6 +49,6 @@ create table user_request(
 	requestId int not null,
     userId int not null,
     primary key(requestId, userId),
-    foreign key fkRequestID(requestId) references request(requestId),
-    foreign key fkUserID(userId) references user(userId)
+    foreign key fkRequestID (requestId) references request (requestId),
+    foreign key fkUserID (userId) references user (userId)
 );
