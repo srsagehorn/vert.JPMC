@@ -31,7 +31,7 @@ public class RequestDaoDB implements RequestDao {
     }
 
     @Override
-    public List<Request> getAllRequests() {
+    public List<Request> getAllRequests(String userId) {
         String GET_ALL_REQUESTS = "SELECT * FROM request";
         return jdbc.query(GET_ALL_REQUESTS, new RequestMapper());
     }
@@ -63,7 +63,7 @@ public class RequestDaoDB implements RequestDao {
 
     @Override
     @Transactional
-    public Request addRequest(Request request) {
+    public Request addRequest(String userId, Request request) {
         String INSERT_NEW_REQUEST = "INSERT INTO request (reqTime, quantity, stockCode) " +
                 "VALUES(?, ?, ?);";
         

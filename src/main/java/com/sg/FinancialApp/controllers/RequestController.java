@@ -39,39 +39,37 @@ public class RequestController {
         this.userDao = userDao;
     }
 
-    // NEED Request for time, stockCode, and value - POST
 
-    @PostMapping("/request/{time}/{stock}/{value}")
+    //NOT TESTED
+    // NEED Request for time, stockCode, and value - POST
+    @PostMapping("/request/{userId}/{time}/{stock}/{value}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Request addUser(@PathVariable Date time, @PathVariable String stock, @PathVariable String value) {
+    public Request addUser(@PathVariable String userId, @PathVariable Date time, @PathVariable String stock, @PathVariable String value) {
         Request r = new Request();
         r.setTimestamp(time);
         r.setStockCode(stock);
         r.setValue(value);
-        return requestDao.addRequest(r);
+        return requestDao.addRequest(userId, r);
     }
 
-
-    // NEED GET fro time, stockCode, and value - GET ( get request with submitted and current val)
-    @GetMapping("/request/{userId}")
-    public List<Request> getAllRequestsByUserId(){
-
-
-        return null;
+    // NOT TESTED
+    // Get all requests from user id with submitted and current stock val)
+    @GetMapping("/requests/{userId}")
+    public List<Request> getAllRequestsByUserId(@PathVariable String userId){
+        return requestDao.getAllRequests(userId);
     }
-
 
     //NOT TESTED
-    @GetMapping("/stock/{symbol}")
-    public String getCurrentStockInformation(@PathVariable String symbol) {
-        // Need to send info to the request.
-        return null;
-    }
+    // WE NEED A DELETE METHOD TO DELETE ALL REQUESTS FROM USER ID
 
+    //NOT TESTED
+    // WE NEED A DELETE METHOD TO DELETE SINGLE REQUEST FROM USER ID
+
+    //NOT TESTED
     //Inserting use email into database using POST (PASSED TEST - NO EDGE CASE VALIDATION YET)
     @PostMapping("/create/{userId}/{email}")
     @ResponseStatus(HttpStatus.CREATED)
-    public User addUser(@PathVariable int userId, @PathVariable String email) {
+    public User addUser(@PathVariable String userId, @PathVariable String email) {
         User user = new User();
         user.setId(userId);
         user.setEmail(email);
@@ -88,20 +86,8 @@ public class RequestController {
         // getrequests summary for when the request was input into db and when it was retrieved (stock value -submitted -current)
 
 
-
-    // Getting users from the database (PASSED - NO EDGE CASE VALIDATION YET)
-    @GetMapping("/users")
-    public List<User> getAllUsers() {
-        return userDao.getAllUsers();
-    }
-
     // NOT TESTED
-    @GetMapping("/user/{id}")
-    public User getUserById(@PathVariable int id) {
-        return userDao.getUserById(id);
-    }
-
-    //NOT TESTED
+    // DELETES USER FROM DATABASE
     @DeleteMapping("/user/{id}")
     public void deleteUSerById(@PathVariable int id) {
         userDao.deleteUserById(id);

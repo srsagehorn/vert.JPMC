@@ -47,10 +47,10 @@ public class UserDaoDB implements UserDao {
     // FUNCTIONAL
     @Override
     public User addUser(User user) {
-        final String INSERT_USER = "INSERT INTO user(email) VALUES(?)";
-        jdbc.update(INSERT_USER, user.getEmail());
-        int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
-        user.setId(newId);
+        final String INSERT_USER = "INSERT INTO user(userId, email) VALUES(?, ?)";
+        jdbc.update(INSERT_USER,
+                user.getId(),
+                user.getEmail());
         return user;
     }
 
@@ -75,7 +75,7 @@ public class UserDaoDB implements UserDao {
         @Override
         public User mapRow(ResultSet rs, int index) throws SQLException {
             User user = new User();
-            user.setId(rs.getInt("userId"));
+            user.setId(rs.getString("userId"));
             user.setEmail(rs.getString("email"));
             return user;
         }
