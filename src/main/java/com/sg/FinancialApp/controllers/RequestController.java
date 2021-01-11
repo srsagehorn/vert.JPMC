@@ -43,15 +43,15 @@ public class RequestController {
     //NOT TESTED
     // NEED Request for time, stockCode, and value - POST
 
-//    @PostMapping("/request/{userId}/{time}/{stock}/{value}")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public Request addUser(@PathVariable String userId, @PathVariable Date time, @PathVariable String stock, @PathVariable String value) {
-//        Request r = new Request();
-//        r.setTimestamp(time);
-//        r.setStockCode(stock);
-//        r.setValue(value);
-//        return requestDao.addRequest(userId, r);
-//    }
+    @PostMapping("/request/{userId}/{time}/{stock}/{value}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Request addUser(@PathVariable String userId, @PathVariable Date time, @PathVariable String stock, @PathVariable String value) {
+        Request r = new Request();
+        r.setTimestamp(time);
+        r.setStockCode(stock);
+        r.setValue(value);
+        return requestDao.addRequest(userId, r);
+    }
 
     // NOT TESTED
     // Get all requests from user id with submitted and current stock val)
@@ -61,10 +61,11 @@ public class RequestController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-//    @GetMapping("/requests/{userId}")
-//    public List<Request> getAllRequestsByUserId(@PathVariable String userId){
-//        return requestDao.getAllRequests(userId);
-//    }
+    // NOT TESTED
+    @GetMapping("/requests/{userId}")
+    public List<Request> getAllRequestsByUserId(@PathVariable String userId){
+        return requestDao.getAllRequests(userId);
+    }
 
     // ^------- REQUEST ------^
 
@@ -83,25 +84,4 @@ public class RequestController {
         user.setEmail(email);
         return userDao.addUser(user);
     }
-
-    // TESTED
-    @DeleteMapping("/user/{userId}")
-    public void deleteUSerById(@PathVariable String userId) {
-        userDao.deleteUserById(userId);
-        // Need a kind of response to show the user was or was not deleted
-    }
-
-
-    // NOTES
-
-    // Login, summary, portfolio, search
-    // Login -> authentication userName or userEmail
-        // delete username as id to delete stock.
-    // search stock and save it to dv ->  time, stock, value
-    // summary - table -> frontEnd
-    // getrequests summary for when the request was input into db and
-    //      when it was retrieved (stock value -submitted -current)
-
-
-
 }
