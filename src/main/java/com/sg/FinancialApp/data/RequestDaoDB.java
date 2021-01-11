@@ -61,8 +61,20 @@ public class RequestDaoDB implements RequestDao {
         }    }
 
     @Override
-    public Request addRequest() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Transactional
+    public Request addRequest(Request request) {
+        String INSERT_NEW_REQUEST = "INSERT INTO request (reqTime, quantity, stockCode) " +
+                "VALUES(?, ?, ?);";
+        
+        jdbc.update(INSERT_NEW_REQUEST, request.getTimestamp(), request.getQuantity(), request.getStockCode());
+        int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        request.setId(newId);
+        
+        String INSERT_NEW_USER_REQUEST = "INSERT INTO user_request (userId, requestId) "
+                + "VALUES(?, ?)";
+        jdbc.update(INSERT_NEW_USER_REQUEST, request.getUserId(), request.getId());
+                
+        return request;
     }
 
     @Override

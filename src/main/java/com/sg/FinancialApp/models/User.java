@@ -5,12 +5,25 @@
  */
 package com.sg.FinancialApp.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author isaacrez
  */
 public class User {
 
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -36,14 +49,5 @@ public class User {
         return true;
     }
     
-    private int id;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
     
 }
