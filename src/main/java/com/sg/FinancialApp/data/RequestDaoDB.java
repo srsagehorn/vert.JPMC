@@ -15,12 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author isaacrez
  */
+@Repository
 public class RequestDaoDB implements RequestDao {
  
     private final JdbcTemplate jdbc;
@@ -58,11 +60,12 @@ public class RequestDaoDB implements RequestDao {
             return jdbc.queryForObject(GET_REQUEST_BY_ID, new RequestMapper(), id);
         } catch (DataAccessException e) {
             return null;
-        }    }
+        }
+    }
 
     @Override
     @Transactional
-    public Request addRequest(Request request) {
+    public Request addRequest( Request request) {
         String INSERT_NEW_REQUEST = "INSERT INTO request (reqTime, quantity, stockCode) " +
                 "VALUES(?, ?, ?);";
         

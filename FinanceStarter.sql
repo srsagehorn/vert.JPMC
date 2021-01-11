@@ -13,13 +13,13 @@ create table request(
 );
     
 create table user(
-	userId int primary key auto_increment not null,
-    email varchar(30) not null
+	userId varchar(100) primary key not null,
+    email varchar(50) not null
 );
 
 create table user_request(
 	requestId int not null,
-    userId int not null,
+    userId varchar(100) not null,
     primary key(requestId, userId),
     foreign key fkRequestID (requestId) references request (requestId),
     foreign key fkUserID (userId) references user (userId)
@@ -41,13 +41,13 @@ create table request(
 );
     
 create table user(
-	userId int primary key auto_increment not null,
-    email varchar(30) not null
+	userId varchar(100) primary key not null,
+    email varchar(50) not null
 );
 
 create table user_request(
 	requestId int not null,
-    userId int not null,
+    userId varchar(100) not null,
     primary key(requestId, userId),
     foreign key fkRequestID (requestId) references request (requestId),
     foreign key fkUserID (userId) references user (userId)
