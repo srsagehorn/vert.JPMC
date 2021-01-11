@@ -7,6 +7,7 @@ package com.sg.FinancialApp.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -14,8 +15,7 @@ import java.util.List;
  */
 public class User {
 
-    private int id;
-
+    private String id;
     private String email;
 
     public String getEmail() {
@@ -26,18 +26,19 @@ public class User {
         this.email = email;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + this.id;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.email);
         return hash;
     }
 

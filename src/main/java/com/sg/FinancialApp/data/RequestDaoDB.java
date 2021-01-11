@@ -58,7 +58,8 @@ public class RequestDaoDB implements RequestDao {
             return jdbc.queryForObject(GET_REQUEST_BY_ID, new RequestMapper(), id);
         } catch (DataAccessException e) {
             return null;
-        }    }
+        }
+    }
 
     @Override
     @Transactional
