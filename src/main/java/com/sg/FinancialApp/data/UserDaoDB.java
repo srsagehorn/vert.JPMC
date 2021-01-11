@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -32,15 +33,20 @@ public class UserDaoDB implements UserDao {
     // FUNCTIONAL
     @Override
     public List<User> getAllUsers() {
-        final String sql = "SELECT userId, email FROM finance.user";
-        return jdbc.query(sql, new UserMapper());
+        final String GET_ALL_USERS = "SELECT * FROM user";
+        return jdbc.query(GET_ALL_USERS, new UserMapper());
     }
 
 
     // NOT TESTED
     @Override
-    public User getUserById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public User getUserById(String id) {
+        try {
+            final String GET_USER_BY_ID = "SELECT * FROM user WHERE userId = ?";
+            return jdbc.queryForObject(GET_USER_BY_ID, new UserMapper(), id);
+        } catch (DataAccessException e) {
+            return null;
+        }
     }
 
 
@@ -64,7 +70,7 @@ public class UserDaoDB implements UserDao {
 
     // NOT TESTED
     @Override
-    public void deleteUserById(int id) {
+    public void deleteUserById(String id) {
         final String sql = "DELETE FROM todo WHERE id = ?";
         jdbc.update(sql, id);
     }
