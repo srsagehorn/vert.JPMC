@@ -55,6 +55,11 @@ public class RequestController {
 
     // NOT TESTED
     // Get all requests from user id with submitted and current stock val)
+    @DeleteMapping("/delete/request")
+    public ResponseEntity deleteRequestBasedOnId(@RequestBody List<Request> requests) {
+        requests.forEach(request -> requestDao.deleteRequestById(request.getId()));
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 
 //    @GetMapping("/requests/{userId}")
 //    public List<Request> getAllRequestsByUserId(@PathVariable String userId){
