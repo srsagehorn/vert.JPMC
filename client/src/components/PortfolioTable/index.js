@@ -19,16 +19,17 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { useForm } from 'react-hook-form';
+import {removeHyphenAddDot} from "../../utilities/StringFormatter"
 
 function createData(name, symbol, dateAdded, prevSharePrice, currSharePrice, change) {
     return { name, symbol, dateAdded, prevSharePrice, currSharePrice, change };
 }
 
 const rows = [
-    createData("Royal Dutch Shell", "RDS.B", "1/01/2020", 38.17, 38.70, 0.63),
+    createData("Royal Dutch Shell", "RDS-B", "1/01/2020", 38.17, 38.70, 0.63),
     createData("British American Tobacco", "BTI", "1/03/2020", 37.50, 37.70, 0.20),
     createData('Apple', "AAPL", "1/05/2020", 125.00, 129.85, 4.85),
-    createData('Apple2', "AAPL", "1/05/2020", 125.00, 129.85, 4.85),
+    createData('Apple2', "APL", "1/05/2020", 125.00, 129.85, 4.85),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -227,7 +228,18 @@ export default function PortfolioTable() {
     //Code needed for react hook form
     const { handleSubmit, register } = useForm();
     const onSubmit = handleSubmit((data) => {
-        console.log(JSON.stringify(data));
+        // data.filter((obj)=>{
+        //     obj.value === false
+        // })
+        let symbolsForDeleting =[]
+        Object.keys(data).forEach(key => {
+              if(data[key]===true){
+                symbolsForDeleting.push(key)
+              };
+        } );
+        symbolsForDeleting = removeHyphenAddDot(symbolsForDeleting)
+        console.log(symbolsForDeleting)
+        console.log(data)
     });
 
     const handleRequestSort = (event, property) => {
@@ -307,27 +319,28 @@ export default function PortfolioTable() {
                                 {stableSort(rows, getComparator(order, orderBy))
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row, index) => {
-                                        const isItemSelected = isSelected(row.name);
+                                        const isItemSelected = isSelected(row.symbol);
                                         const labelId = `enhanced-table-checkbox-${index}`;
 
                                         return (
                                             <TableRow
                                                 hover
-                                                onClick={(event) => handleClick(event, row.name)}
+                                                onClick={(event) => handleClick(event, row.symbol)}
                                                 role="checkbox"
                                                 aria-checked={isItemSelected}
                                                 tabIndex={-1}
-                                                key={row.name}
+                                                key={row.symbol}
                                                 selected={isItemSelected}
                                                 className={classes.tableRow}
-                                                //fields needed for react hook form
-                                                name={row.name}
-                                                inputRef={register}
+
                                             >
                                                 <TableCell padding="checkbox">
                                                     <Checkbox
                                                         checked={isItemSelected}
                                                         inputProps={{ 'aria-labelledby': labelId }}
+                                                        //fields needed for react hook form
+                                                        name={row.symbol}
+                                                        inputRef={register}
                                                     />
                                                 </TableCell>
                                                 <TableCell component="th" id={labelId} scope="row" padding="none">
