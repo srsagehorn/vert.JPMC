@@ -19,7 +19,7 @@ public interface RequestDao {
     List<Request> getAllRequests();
     List<Request> getRequestsForUser(User user);
     Request getRequestById(int id);
-    Request addRequest();
+    Request addRequest(Request request);
     void updateRequest(Request request);
     void deleteRequestById(int id);
 }
