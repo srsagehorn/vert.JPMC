@@ -32,8 +32,8 @@ public class UserDaoDB implements UserDao {
     // FUNCTIONAL
     @Override
     public List<User> getAllUsers() {
-        final String sql = "SELECT userId, email FROM finance.user";
-        return jdbc.query(sql, new UserMapper());
+        final String GET_ALL_USERS = "SELECT * FROM user";
+        return jdbc.query(GET_ALL_USERS, new UserMapper());
     }
 
 
@@ -65,8 +65,8 @@ public class UserDaoDB implements UserDao {
     // FUNCTIONAL
     @Override
     public void deleteUserById(String id) {
-        final String sql = "DELETE FROM finance.user WHERE userId = ?";
-        jdbc.update(sql, id);
+        final String DELETE_USER = "DELETE FROM user WHERE userId = ?";
+        jdbc.update(DELETE_USER, id);
     }
     
     public static final class UserMapper implements RowMapper<User> {
