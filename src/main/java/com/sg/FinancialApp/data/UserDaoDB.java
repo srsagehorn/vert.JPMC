@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -33,28 +32,25 @@ public class UserDaoDB implements UserDao {
     // FUNCTIONAL
     @Override
     public List<User> getAllUsers() {
-        final String GET_ALL_USERS = "SELECT * FROM user";
-        return jdbc.query(GET_ALL_USERS, new UserMapper());
+        final String sql = "SELECT userId, email FROM finance.user";
+        return jdbc.query(sql, new UserMapper());
     }
 
 
     // NOT TESTED
     @Override
     public User getUserById(String id) {
-        try {
-            final String GET_USER_BY_ID = "SELECT * FROM user WHERE userId = ?";
-            return jdbc.queryForObject(GET_USER_BY_ID, new UserMapper(), id);
-        } catch (DataAccessException e) {
-            return null;
-        }
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 
     // FUNCTIONAL
     @Override
     public User addUser(User user) {
-        final String INSERT_USER = "INSERT INTO user (userId, email) VALUES(?,?)";
-        jdbc.update(INSERT_USER, user.getId(), user.getEmail());
+        final String INSERT_USER = "INSERT INTO user(userId, email) VALUES(?, ?)";
+        jdbc.update(INSERT_USER,
+                user.getId(),
+                user.getEmail());
         return user;
     }
 
@@ -62,20 +58,17 @@ public class UserDaoDB implements UserDao {
     // NOT TESTED
     @Override
     public void updateUser(User user) {
-        final String UPDATE_USER = "UPDATE user SET email = ? WHERE userId = ?";
-        jdbc.update(UPDATE_USER, user.getEmail(), user.getId());
+        final String sql = "UPDATE finance.user SET email = ? WHERE userId = ?";
+        // May need to check the update.
+        jdbc.update(sql, user.getId(), user.getEmail());
 
     }
 
-    // NOT TESTED
+    // FUNCTIONAL
     @Override
-    @Transactional
     public void deleteUserById(String id) {
-        final String DELETE_USER_REQUEST = "DELETE FROM user_request WHERE userId = ?";
-        jdbc.update(DELETE_USER_REQUEST, id);
-        
-        final String DELETE_USER = "DELETE FROM user WHERE userId = ?";
-        jdbc.update(DELETE_USER, id);
+        final String sql = "DELETE FROM finance.user WHERE userId = ?";
+        jdbc.update(sql, id);
     }
     
     public static final class UserMapper implements RowMapper<User> {
