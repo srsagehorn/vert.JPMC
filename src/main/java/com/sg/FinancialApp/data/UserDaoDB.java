@@ -54,7 +54,7 @@ public class UserDaoDB implements UserDao {
     @Override
     public User addUser(User user) {
         final String INSERT_USER = "INSERT INTO user (userId, email) VALUES(?,?)";
-        jdbc.update(INSERT_USER, user.getEmail());
+        jdbc.update(INSERT_USER, user.getId(), user.getEmail());
         return user;
     }
 
@@ -62,17 +62,20 @@ public class UserDaoDB implements UserDao {
     // NOT TESTED
     @Override
     public void updateUser(User user) {
-        final String sql = "UPDATE finance.user SET email = ? WHERE userId = ?";
-        // May need to check the update.
-        jdbc.update(sql, user.getId(), user.getEmail());
+        final String UPDATE_USER = "UPDATE user SET email = ? WHERE userId = ?";
+        jdbc.update(UPDATE_USER, user.getEmail(), user.getId());
 
     }
 
     // NOT TESTED
     @Override
+    @Transactional
     public void deleteUserById(String id) {
-        final String sql = "DELETE FROM todo WHERE id = ?";
-        jdbc.update(sql, id);
+        final String DELETE_USER_REQUEST = "DELETE FROM user_request WHERE userId = ?";
+        jdbc.update(DELETE_USER_REQUEST, id);
+        
+        final String DELETE_USER = "DELETE FROM user WHERE userId = ?";
+        jdbc.update(DELETE_USER, id);
     }
     
     public static final class UserMapper implements RowMapper<User> {
