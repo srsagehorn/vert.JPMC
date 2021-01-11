@@ -43,37 +43,32 @@ public class RequestController {
     //NOT TESTED
     // NEED Request for time, stockCode, and value - POST
 
-    @PostMapping("/request/{userId}/{time}/{stock}/{value}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Request addUser(@PathVariable String userId, @PathVariable Date time, @PathVariable String stock, @PathVariable String value) {
-        Request r = new Request();
-        r.setTimestamp(time);
-        r.setStockCode(stock);
-        r.setValue(value);
-        return requestDao.addRequest(userId, r);
-    }
+//    @PostMapping("/request/{userId}/{time}/{stock}/{value}")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public Request addUser(@PathVariable String userId, @PathVariable Date time, @PathVariable String stock, @PathVariable String value) {
+//        Request r = new Request();
+//        r.setTimestamp(time);
+//        r.setStockCode(stock);
+//        r.setValue(value);
+//        return requestDao.addRequest(userId, r);
+//    }
 
     // NOT TESTED
-    // Get all requests from user id with submitted and current stock val)
-    @DeleteMapping("/delete/request")
-    public ResponseEntity deleteRequestBasedOnId(@RequestBody List<Request> requests) {
-        requests.forEach(request -> requestDao.deleteRequestById(request.getId()));
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }
+
+//    @DeleteMapping("/delete/request")
+//    public ResponseEntity deleteRequestBasedOnId(@RequestBody List<Request> requests) {
+//        requests.forEach(request -> requestDao.deleteRequestById(request.getId()));
+//        return new ResponseEntity(HttpStatus.NO_CONTENT);
+//    }
 
     // NOT TESTED
-    @GetMapping("/requests/{userId}")
-    public List<Request> getAllRequestsByUserId(@PathVariable String userId){
-        return requestDao.getAllRequests(userId);
-    }
+
+//    @GetMapping("/requests/{userId}")
+//    public List<Request> getAllRequestsByUserId(@PathVariable String userId){
+//        return requestDao.getAllRequests(userId);
+//    }
 
     // ^------- REQUEST ------^
-
-    //NOT TESTED
-    // WE NEED A DELETE METHOD TO DELETE ALL REQUESTS FROM USER ID
-
-    //NOT TESTED
-    // WE NEED A DELETE METHOD TO DELETE SINGLE REQUEST FROM USER ID
 
     //TESTED
     @PostMapping("/create/{userId}/{email}")
