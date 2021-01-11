@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -29,19 +30,23 @@ public class UserDaoDB implements UserDao {
         this.jdbc = jdbcTemplate;
     }
 
-
     // FUNCTIONAL
     @Override
     public List<User> getAllUsers() {
-        final String sql = "SELECT userId, email FROM finance.user";
-        return jdbc.query(sql, new UserMapper());
+        final String GET_ALL_USERS = "SELECT * FROM user";
+        return jdbc.query(GET_ALL_USERS, new UserMapper());
     }
 
 
     // NOT TESTED
     @Override
     public User getUserById(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            final String GET_USER_BY_ID = "SELECT * FROM user WHERE userId = ?";
+            return jdbc.queryForObject(GET_USER_BY_ID, new UserMapper(), id);
+        } catch (DataAccessException e) {
+            return null;
+        }
     }
 
 
@@ -66,8 +71,8 @@ public class UserDaoDB implements UserDao {
     // FUNCTIONAL
     @Override
     public void deleteUserById(String id) {
-        final String sql = "DELETE FROM finance.user WHERE userId = ?";
-        jdbc.update(sql, id);
+        final String DELETE_USER = "DELETE FROM user WHERE userId = ?";
+        jdbc.update(DELETE_USER, id);
     }
     
     public static final class UserMapper implements RowMapper<User> {
