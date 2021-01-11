@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -58,10 +59,8 @@ public class UserDaoDB implements UserDao {
     // NOT TESTED
     @Override
     public void updateUser(User user) {
-        final String sql = "UPDATE finance.user SET email = ? WHERE userId = ?";
-        // May need to check the update.
-        jdbc.update(sql, user.getId(), user.getEmail());
-
+        final String UPDATE_USER = "UPDATE user SET email = ? WHERE userId = ?";
+        jdbc.update(UPDATE_USER, user.getEmail(), user.getId());
     }
 
     // FUNCTIONAL
