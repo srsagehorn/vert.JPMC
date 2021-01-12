@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="cdf2c9ed-1ca0-485b-a57b-e5c95e98c5b1" name="Default Changelist" comment="Updated equals and hashcode for User and Request">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +39,7 @@
       <recent name="C:\Users\fours\Desktop\mthree Final Project\finGraph.JPMC\src\test\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Cucumber Java.Feature: user">
+  <component name="RunManager" selected="JUnit.CucumberTest">
     <configuration name="Feature: user" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="5" />
       <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/user.feature" />
@@ -98,26 +99,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Scenario: getAllRequests should return an empty list if there are no requests" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
-      <option name="CUCUMBER_CORE_VERSION" value="5" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/request.feature" />
-      <option name="GLUE" value="com.sg.FinancialApp.data" />
-      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
-      <module name="FinancialApp" />
-      <option name="NAME_FILTER" value="^getAllRequests should return an empty list if there are no requests$" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^getAllRequests should return an empty list if there are no requests$&quot;" />
-      <option name="SUGGESTED_NAME" value="Scenario: getAllRequests should return an empty list if there are no requests" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="io.cucumber.core.cli.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Scenario: getRequestByID should return the request which corresponds to that ID" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="5" />
       <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/request.feature" />
@@ -138,13 +119,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CucumberTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FinancialApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sg.FinancialApp.data.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.sg.FinancialApp.data" />
+      <option name="MAIN_CLASS_NAME" value="com.sg.FinancialApp.data.CucumberTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CucumberTest" />
         <item itemvalue="Cucumber Java.Feature: user" />
         <item itemvalue="Cucumber Java.Scenario: Add Multiple users and getAll" />
         <item itemvalue="Cucumber Java.Scenario: getRequestByID should return the request which corresponds to that ID" />
         <item itemvalue="Cucumber Java.Scenario: deleteRequest should delete" />
-        <item itemvalue="Cucumber Java.Scenario: getAllRequests should return an empty list if there are no requests" />
       </list>
     </recent_temporary>
   </component>
