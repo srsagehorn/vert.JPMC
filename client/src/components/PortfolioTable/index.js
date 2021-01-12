@@ -14,19 +14,22 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
+import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { useForm } from 'react-hook-form';
-import {removeHyphenAddDot} from "../../utilities/StringFormatter"
+import { removeHyphenAddDot } from "../../utilities/StringFormatter"
 
 function createData(name, symbol, dateAdded, prevSharePrice, currSharePrice, change) {
-    return { name, symbol, dateAdded, prevSharePrice, currSharePrice, change };
+    let percentChange = (change / prevSharePrice) * 100
+    percentChange = (Math.round(percentChange * 100) / 100).toFixed(2);
+    return { name, symbol, dateAdded, prevSharePrice, currSharePrice, change, percentChange };
 }
 
 const rows = [
-    createData("Royal Dutch Shell", "RDS-B", "1/01/2020", 38.17, 38.70, 0.63),
+    createData("Royal Dutch Shell", "RDS-B", "1/01/2020", 38.70, 38.17, -0.53),
     createData("British American Tobacco", "BTI", "1/03/2020", 37.50, 37.70, 0.20),
     createData('Apple', "AAPL", "1/05/2020", 125.00, 129.85, 4.85),
     createData('Apple2', "APL", "1/05/2020", 125.00, 129.85, 4.85),
@@ -63,9 +66,10 @@ const headCells = [
     { id: 'name', numeric: false, disablePadding: true, label: 'Company' },
     { id: 'symbol', numeric: true, disablePadding: false, label: 'Symbol' },
     { id: 'dateAdded', numeric: true, disablePadding: false, label: 'Date Added' },
-    { id: 'prevSharePrice', numeric: true, disablePadding: false, label: 'Previous Price' },
-    { id: 'currSharePrice', numeric: true, disablePadding: false, label: 'Current Price' },
-    { id: 'change', numeric: true, disablePadding: false, label: 'Change' },
+    { id: 'prevSharePrice', numeric: true, disablePadding: false, label: 'Previous Price (USD)' },
+    { id: 'currSharePrice', numeric: true, disablePadding: false, label: 'Current Price (USD)' },
+    { id: 'change', numeric: true, disablePadding: false, label: 'Change (USD)' },
+    { id: 'percentChange', numeric: true, disablePadding: false, label: 'Percent Change (%)' }
 ];
 
 function EnhancedTableHead(props) {
@@ -198,11 +202,37 @@ const useStyles = makeStyles((theme) => ({
     tableRow: {
 
     },
-    tableCell: {
-        "$hover:hover &": {
-            color: "pink"
-        }
+    tableCellPositive: {
+       
+        color: "rgb(57,255,20)"
     },
+
+    tableCellNegative: {
+        color: "rgb(255, 7, 58)"
+    },
+
+    boxNegative:{
+        backgroundColor:"rgba(130,120,120, 0.20)",
+         display:"inline-block", 
+         borderRadius:"2px", 
+         padding:"0.2rem 0.8rem"
+    },
+
+    boxPositive:{
+        backgroundColor:"rgba(130,130,130, 0.20)",
+         display:"inline-block", 
+         borderRadius:"2px", 
+         padding:"0.2rem 0.8rem"
+    },
+
+    boxNeutral:{
+        backgroundColor:"rgba(100,100,100, 0.2)",
+         display:"inline-block", 
+         borderRadius:"2px", 
+         padding:"0.2rem 0.8rem"
+    },
+
+
     visuallyHidden: {
         border: 0,
         clip: 'rect(0 0 0 0)',
@@ -231,12 +261,12 @@ export default function PortfolioTable() {
         // data.filter((obj)=>{
         //     obj.value === false
         // })
-        let symbolsForDeleting =[]
+        let symbolsForDeleting = []
         Object.keys(data).forEach(key => {
-              if(data[key]===true){
+            if (data[key] === true) {
                 symbolsForDeleting.push(key)
-              };
-        } );
+            };
+        });
         symbolsForDeleting = removeHyphenAddDot(symbolsForDeleting)
         console.log(symbolsForDeleting)
         console.log(data)
@@ -289,6 +319,27 @@ export default function PortfolioTable() {
     const handleChangeDense = (event) => {
         setDense(event.target.checked);
     };
+
+    //conditional logic to render the color of the text
+    const renderTextColor = (value) =>{
+        if (value>0){
+            return classes.tableCellPositive
+        }else if(value<0){
+            return classes.tableCellNegative
+        }else{
+            return 
+        }
+    }
+
+    const renderBoxColor =(value)=>{
+        if (value>0){
+            return classes.boxPositive
+        }else if(value<0){
+            return classes.boxNegative
+        }else{
+            return classes.boxNeutral
+        }
+    }
 
     const isSelected = (name) => selected.indexOf(name) !== -1;
 
@@ -349,14 +400,36 @@ export default function PortfolioTable() {
                                                 <TableCell align="right">{row.symbol}</TableCell>
                                                 <TableCell align="right">{row.dateAdded}</TableCell>
                                                 <TableCell align="right">{row.prevSharePrice}</TableCell>
-                                                <TableCell align="right">{row.currSharePrice}</TableCell>
-                                                <TableCell align="right">{row.change}</TableCell>
+                                                <TableCell align="right"
+                                                 className={row.currSharePrice < row.prevSharePrice ? classes.tableCellNegative : classes.tableCellPositive}
+                                                >
+                                                       <Box className={renderBoxColor(row.percentChange)}>
+
+                                                    {row.currSharePrice}
+                                                       </Box>
+                                                       </TableCell>
+                                                <TableCell 
+                                                className={renderTextColor(row.change)}
+                                                align="right">
+                                                     <Box className={renderBoxColor(row.percentChange)}>
+                                                     {row.change}
+                                                     </Box>
+                                                   </TableCell>
+                                                <TableCell
+                                                    className={renderTextColor(row.percentChange)}
+                                                    align="right">
+                                                        <Box className={renderBoxColor(row.percentChange)}>
+                                                    {row.percentChange < 0 ? `${row.percentChange}` : `+${row.percentChange}`}
+
+                                                        </Box>
+
+                                                </TableCell>
                                             </TableRow>
                                         );
                                     })}
                                 {emptyRows > 0 && (
                                     <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                                        <TableCell colSpan={7} />
+                                        <TableCell colSpan={8} />
                                     </TableRow>
                                 )}
                             </TableBody>
