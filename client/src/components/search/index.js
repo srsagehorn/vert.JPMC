@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import axios from 'axios'
@@ -102,7 +103,7 @@ export default function Search() {
                                     handleChange(newInputValue)
                                 }}
                                 options={tickerOptions.map((option) => `${option.symbol}  -  ${option.name.length < 35 ? option.name : option.name.substring(0, 35) + "..."}`)}
-
+        
                                 renderInput={(params) => (
                                     <TextField {...params}
                                         label="Search Ticker Symbol"

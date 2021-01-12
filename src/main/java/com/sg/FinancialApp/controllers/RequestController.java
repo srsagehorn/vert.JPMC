@@ -54,7 +54,14 @@ public class RequestController {
 //    }
 
     // NOT TESTED
-    // Get all requests from user id with submitted and current stock val)
+
+//    @DeleteMapping("/delete/request")
+//    public ResponseEntity deleteRequestBasedOnId(@RequestBody List<Request> requests) {
+//        requests.forEach(request -> requestDao.deleteRequestById(request.getId()));
+//        return new ResponseEntity(HttpStatus.NO_CONTENT);
+//    }
+
+    // NOT TESTED
 
 //    @GetMapping("/requests/{userId}")
 //    public List<Request> getAllRequestsByUserId(@PathVariable String userId){
@@ -62,12 +69,6 @@ public class RequestController {
 //    }
 
     // ^------- REQUEST ------^
-
-    //NOT TESTED
-    // WE NEED A DELETE METHOD TO DELETE ALL REQUESTS FROM USER ID
-
-    //NOT TESTED
-    // WE NEED A DELETE METHOD TO DELETE SINGLE REQUEST FROM USER ID
 
     //TESTED
     @PostMapping("/create/{userId}/{email}")
@@ -78,25 +79,4 @@ public class RequestController {
         user.setEmail(email);
         return userDao.addUser(user);
     }
-
-    // TESTED
-    @DeleteMapping("/user/{userId}")
-    public void deleteUSerById(@PathVariable String userId) {
-        userDao.deleteUserById(userId);
-        // Need a kind of response to show the user was or was not deleted
-    }
-
-
-    // NOTES
-
-    // Login, summary, portfolio, search
-    // Login -> authentication userName or userEmail
-        // delete username as id to delete stock.
-    // search stock and save it to dv ->  time, stock, value
-    // summary - table -> frontEnd
-    // getrequests summary for when the request was input into db and
-    //      when it was retrieved (stock value -submitted -current)
-
-
-
 }
