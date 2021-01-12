@@ -6,7 +6,9 @@ import green from '@material-ui/core/colors/green';
 
 const theme = createMuiTheme({
   palette: {
-      type: "dark"
+      type: "dark",
+      background: "rgb(10,10,10)",
+      divider:"rgba(10, 150, 100, 0.2)"
   },
 });
 

@@ -109,6 +109,7 @@ public class RequestDaoDB implements RequestDao {
             request.setId(rs.getInt("requestId"));
             request.setTimestamp(rs.getDate("reqTime"));
             request.setStockCode(rs.getString("stockCode"));
+            request.setQuantity(rs.getFloat("quantity"));
             request.setValue(rs.getString("value"));
             return request;
         }
