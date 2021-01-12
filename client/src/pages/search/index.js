@@ -6,6 +6,8 @@ import { StockInfoContext } from '../../contexts/StockInfoContext'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles';
+import { ThemeProvider } from "@material-ui/styles";
+import theme from "../../themes/theme"
 
 const useStyles = makeStyles((theme) => ({
    loader: {
@@ -21,7 +23,9 @@ export default function SearchPage() {
   
     return (
         <div>
+            <ThemeProvider theme={theme}> 
             <Nav />
+            
             <Search />
             {stockInfo.isLoading ?
 
@@ -32,8 +36,8 @@ export default function SearchPage() {
                 </Grid>
                 :
                 <StockInfo />
-
             }
+</ThemeProvider>
         </div>
     )
 }
