@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import Search from "../../components/Search"
+import Search from "../../components/search"
 import Nav from '../../components/nav'
 import StockInfo from "../../components/StockInfo"
 import { StockInfoContext } from '../../contexts/StockInfoContext'
