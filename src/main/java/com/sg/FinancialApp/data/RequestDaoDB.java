@@ -66,10 +66,10 @@ public class RequestDaoDB implements RequestDao {
     @Override
     @Transactional
     public Request addRequest( Request request) {
-        String INSERT_NEW_REQUEST = "INSERT INTO request (reqTime, quantity, stockCode) " +
-                "VALUES(?, ?, ?);";
+        String INSERT_NEW_REQUEST = "INSERT INTO request (reqTime, quantity, stockCode, value) " +
+                "VALUES(?, ?, ?, ?);";
         
-        jdbc.update(INSERT_NEW_REQUEST, request.getTimestamp(), request.getQuantity(), request.getStockCode());
+        jdbc.update(INSERT_NEW_REQUEST, request.getTimestamp(), request.getQuantity(), request.getStockCode(), request.getValue());
         int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         request.setId(newId);
         
@@ -83,8 +83,8 @@ public class RequestDaoDB implements RequestDao {
     @Override
     public void updateRequest(Request request) {
         String UPDATE_GAME = "UPDATE request " +
-                "SET timestamp = ?, stockCode = ?, value = ? " +
-                "WHERE id = ?; ";
+                "SET reqTime = ?, stockCode = ?, value = ? " +
+                "WHERE requestId = ?; ";
         jdbc.update(UPDATE_GAME, 
                 request.getTimestamp(), 
                 request.getStockCode(),
@@ -98,7 +98,7 @@ public class RequestDaoDB implements RequestDao {
         String DELETE_USER_REQUEST = "DELETE FROM user_request WHERE requestId = ?";
         jdbc.update(DELETE_USER_REQUEST, id);
         
-        String DELETE_REQUEST = "DELETE FROM request WHERE id = ?";
+        String DELETE_REQUEST = "DELETE FROM request WHERE requestId = ?";
         jdbc.update(DELETE_REQUEST, id);
     }
     

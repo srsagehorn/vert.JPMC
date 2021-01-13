@@ -5,7 +5,7 @@
  */
 package com.sg.FinancialApp.models;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 /**
@@ -15,7 +15,7 @@ import java.util.Objects;
 public class Request {
 
     private int id;
-    private int userId;
+    private String userId;
     private float quantity;
     private Date timestamp;
     private String stockCode;
@@ -29,11 +29,11 @@ public class Request {
         this.id = id;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

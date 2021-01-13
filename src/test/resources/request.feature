@@ -16,10 +16,10 @@ Feature: We need to ensure our Request CRUD methods work
     When I add a Request and call getRequestByID using the id of the new Request
     Then I should get the request I just added
 
-  Scenario: getRequestByUser should return the request which corresponds to that user ID
+  Scenario: getRequestsByUser should return the request which corresponds to that user ID
     Given The Request table is empty
     When I add a Request and call getRequestsForUser using the user id of the new Request
-    Then I should get the request I just added
+    Then That request should be in the list
 
   Scenario: updateRequest should alter the information in a request
     Given The Request table is empty
