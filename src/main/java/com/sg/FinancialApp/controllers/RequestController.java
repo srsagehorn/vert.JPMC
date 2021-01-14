@@ -25,6 +25,7 @@ import java.util.List;
  * @author Sebastian Troncoso
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api")
 public class RequestController {
 
