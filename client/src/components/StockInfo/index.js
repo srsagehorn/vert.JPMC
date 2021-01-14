@@ -17,10 +17,10 @@ export default function StockInfo() {
     const classes = useStyles();
     const [stockInfo, dispatchStockInfo] = useContext(StockInfoContext)
     return (
-        <Box m={3}>
+        <Box m={1}>
 
             <Grid container spacing={4}>
-                <Grid item sm={12}>
+                {/* <Grid item sm={12}>
                     <Card>
                         <CardContent>
                             <Typography>
@@ -29,7 +29,7 @@ export default function StockInfo() {
                         </CardContent>
                     </Card>
 
-                </Grid>
+                </Grid> */}
                 <Grid item container spacing={3} justify="center" alignItems="stretch" sm={12}>
 
                     <Grid item sm={6} >
