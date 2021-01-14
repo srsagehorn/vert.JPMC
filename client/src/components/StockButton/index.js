@@ -58,18 +58,18 @@ export default function StockButton() {
     return (
         <div>
 
-            <Grid container justify="center">
-                {/* <form onSubmit={onSubmit}> */}
+                <form onSubmit={onSubmit}>
+            <Grid container justify="center" spacing={3}>
                     {/* <Paper> */}
                       
 
-                        <Grid item container xs={12} justify="center" alignItems="center" align="center" spacing={5}>
-                            <Grid item xs={6}>
+                        <Grid item container xs={7} justify="center" alignItems="center" align="center" spacing={2}>
+                            <Grid item xs={3}>
                         
                                 <TextField inputRef={register} name="numberOfShares" size="small" id="outlined-basic" label="Number of shares" variant="outlined" />
                              
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={3}>
                              
                                 <Button variant="outlined" color="primary" type="submit" >
                                     Track Change
@@ -81,8 +81,8 @@ export default function StockButton() {
                         </Grid>
                    
                     {/* </Paper> */}
-                {/* </form> */}
             </Grid>
+                </form>
 
 
         </div>
