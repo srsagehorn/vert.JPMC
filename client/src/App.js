@@ -1,41 +1,25 @@
-// import React from "react"
-import Search from "./pages/search"
-import Summary from "./pages/summary"
-import Login from "./pages/login"
-import Portfolio from './pages/portfolio'
-import './styles.css'
-import StockInfoContextProvider from "./contexts/StockInfoContext"
-import { UserProvider } from './components/firebase/userContext'
-import React, { Component } from "react";
-import { BrowserRouter, Route} from "react-router-dom";
+import logo from './logo.svg';
+import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <UserProvider>
-        <StockInfoContextProvider>
-          <BrowserRouter>
-            <Route exact path="/" component={Login} />
-            <Route exact path="/search" component={Search} />
-            <Route exact path="/summary" component={Summary} />
-            <Route exact path="/portfolio" component={Portfolio} />
-          </BrowserRouter>
-          </StockInfoContextProvider>
-       </UserProvider>
-    );
-  }
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
 }
 
-// function App () {
-//   return (
-//     <div className = "App">
-//       {/* <Login /> */}
-//       {/* <Search /> */}
-//       <Summary />
-//       <Portfolio />
-//     </div>
-//   )
-// }
-
 export default App;
-
