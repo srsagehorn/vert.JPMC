@@ -32,12 +32,8 @@ public class RequestController {
     @Autowired
     private final RequestDao requestDao;
     
-    @Autowired
-    private final UserDao userDao;
-    
-    public RequestController(RequestDao requestDao, UserDao userDao) {
+    public RequestController(RequestDao requestDao) {
         this.requestDao = requestDao;
-        this.userDao = userDao;
     }
 
     // ------- REQUEST ------
@@ -70,15 +66,5 @@ public class RequestController {
     @GetMapping("/request/all")
     public ResponseEntity getAllRequest() {
         return ResponseEntity.ok(requestDao.getAllRequests());
-    }
-
-    // ^------- REQUEST ------^
-
-    //TESTED
-    @PostMapping("/user")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity addUser(@RequestBody User user) {
-        user = userDao.addUser(user);
-        return ResponseEntity.ok(user);
     }
 }
