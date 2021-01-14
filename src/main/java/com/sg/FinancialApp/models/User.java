@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 public class User {
 
-    private String id;
+    private String userId;
     private String email;
 
     public String getEmail() {
@@ -26,12 +26,12 @@ public class User {
         this.email = email;
     }
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -39,11 +39,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id.equals(user.id) && email.equals(user.email);
+        return userId.equals(user.userId) && email.equals(user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email);
+        return Objects.hash(userId, email);
     }
 }
