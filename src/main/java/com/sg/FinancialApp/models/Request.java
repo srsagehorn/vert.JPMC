@@ -14,44 +14,9 @@ import java.util.Objects;
  */
 public class Request {
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 43 * hash + this.id;
-        hash = 43 * hash + Objects.hashCode(this.timestamp);
-        hash = 43 * hash + Objects.hashCode(this.stockCode);
-        hash = 43 * hash + Objects.hashCode(this.value);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Request other = (Request) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        if (!Objects.equals(this.stockCode, other.stockCode)) {
-            return false;
-        }
-        if (!Objects.equals(this.value, other.value)) {
-            return false;
-        }
-        if (!Objects.equals(this.timestamp, other.timestamp)) {
-            return false;
-        }
-        return true;
-    }
-
     private int id;
+    private int userId;
+    private float quantity;
     private Date timestamp;
     private String stockCode;
     private String value;
@@ -62,6 +27,22 @@ public class Request {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public float getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(float quantity) {
+        this.quantity = quantity;
     }
 
     public Date getTimestamp() {
@@ -87,5 +68,17 @@ public class Request {
     public void setValue(String value) {
         this.value = value;
     }
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Request request = (Request) o;
+        return id == request.id && userId == request.userId && Float.compare(request.quantity, quantity) == 0 && timestamp.equals(request.timestamp) && stockCode.equals(request.stockCode) && value.equals(request.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userId, quantity, timestamp, stockCode, value);
+    }
 }

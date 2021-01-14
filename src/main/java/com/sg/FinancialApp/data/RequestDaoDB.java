@@ -15,12 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author isaacrez
  */
+@Repository
 public class RequestDaoDB implements RequestDao {
  
     private final JdbcTemplate jdbc;
@@ -58,11 +60,24 @@ public class RequestDaoDB implements RequestDao {
             return jdbc.queryForObject(GET_REQUEST_BY_ID, new RequestMapper(), id);
         } catch (DataAccessException e) {
             return null;
-        }    }
+        }
+    }
 
     @Override
-    public Request addRequest() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Transactional
+    public Request addRequest( Request request) {
+        String INSERT_NEW_REQUEST = "INSERT INTO request (reqTime, quantity, stockCode) " +
+                "VALUES(?, ?, ?);";
+        
+        jdbc.update(INSERT_NEW_REQUEST, request.getTimestamp(), request.getQuantity(), request.getStockCode());
+        int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        request.setId(newId);
+        
+        String INSERT_NEW_USER_REQUEST = "INSERT INTO user_request (userId, requestId) "
+                + "VALUES(?, ?)";
+        jdbc.update(INSERT_NEW_USER_REQUEST, request.getUserId(), request.getId());
+                
+        return request;
     }
 
     @Override
@@ -94,6 +109,7 @@ public class RequestDaoDB implements RequestDao {
             request.setId(rs.getInt("requestId"));
             request.setTimestamp(rs.getDate("reqTime"));
             request.setStockCode(rs.getString("stockCode"));
+            request.setQuantity(rs.getFloat("quantity"));
             request.setValue(rs.getString("value"));
             return request;
         }

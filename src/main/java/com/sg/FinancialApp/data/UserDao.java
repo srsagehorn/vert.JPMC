@@ -16,8 +16,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao {
     List<User> getAllUsers();
-    User getUserById(int id);
-    User addUser();
+    User getUserById(String id);
+    User addUser(User user);
     void updateUser(User user);
-    void deleteUserById(int id);
+    void deleteUserById(String id);
 }

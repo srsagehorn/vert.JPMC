@@ -5,45 +5,45 @@
  */
 package com.sg.FinancialApp.models;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 /**
  *
  * @author isaacrez
  */
 public class User {
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + this.id;
-        return hash;
+    private String id;
+    private String email;
+
+    public String getEmail() {
+        return email;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final User other = (User) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
+    public void setEmail(String email) {
+        this.email = email;
     }
-    
-    private int id;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id.equals(user.id) && email.equals(user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email);
+    }
 }

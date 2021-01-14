@@ -28,36 +28,55 @@ public class UserDaoDB implements UserDao {
         this.jdbc = jdbcTemplate;
     }
 
+
+    // FUNCTIONAL
     @Override
     public List<User> getAllUsers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String sql = "SELECT userId, email FROM finance.user";
+        return jdbc.query(sql, new UserMapper());
     }
 
+
+    // NOT TESTED
     @Override
-    public User getUserById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public User getUserById(String id) {
+        final String sql = "SELECT userId, email FROM finance.user WHERE userID = ?";
+        return jdbc.queryForObject(sql, new UserMapper());
     }
 
+
+    // FUNCTIONAL
     @Override
-    public User addUser() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public User addUser(User user) {
+        final String INSERT_USER = "INSERT INTO user(userId, email) VALUES(?, ?)";
+        jdbc.update(INSERT_USER,
+                user.getId(),
+                user.getEmail());
+        return user;
     }
 
+
+    // NOT TESTED
     @Override
     public void updateUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String sql = "UPDATE finance.user SET email = ? WHERE userId = ?";
+        jdbc.update(sql, user.getId(), user.getEmail());
+
     }
 
+    // FUNCTIONAL
     @Override
-    public void deleteUserById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteUserById(String id) {
+        final String sql = "DELETE FROM finance.user WHERE userId = ?";
+        jdbc.update(sql, id);
     }
     
-    public static final class RequestMapper implements RowMapper<User> {
+    public static final class UserMapper implements RowMapper<User> {
         @Override
         public User mapRow(ResultSet rs, int index) throws SQLException {
             User user = new User();
-            user.setId(rs.getInt("requestId"));
+            user.setId(rs.getString("userId"));
+            user.setEmail(rs.getString("email"));
             return user;
         }
     }
