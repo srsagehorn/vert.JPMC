@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import Search from "../../components/Search"
-import Nav from '../../components/nav'
 import StockInfo from "../../components/StockInfo"
 import StockButton from "../../components/StockButton"
 import { StockInfoContext } from '../../contexts/StockInfoContext'
@@ -25,8 +24,6 @@ export default function SearchPage() {
     return (
         <div>
             <ThemeProvider theme={theme}> 
-            <Nav />
-            
             <Search />
             <StockButton/>
             {stockInfo.isLoading ?
