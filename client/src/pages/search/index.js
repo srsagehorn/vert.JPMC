@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import Search from "../../components/Search"
 import Nav from '../../components/nav'
 import StockInfo from "../../components/StockInfo"
+import StockButton from "../../components/StockButton"
 import { StockInfoContext } from '../../contexts/StockInfoContext'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Grid from '@material-ui/core/Grid'
@@ -27,6 +28,7 @@ export default function SearchPage() {
             <Nav />
             
             <Search />
+            <StockButton/>
             {stockInfo.isLoading ?
 
                 <Grid container justify="center">
