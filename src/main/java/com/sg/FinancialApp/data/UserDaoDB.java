@@ -32,7 +32,7 @@ public class UserDaoDB implements UserDao {
     // FUNCTIONAL
     @Override
     public List<User> getAllUsers() {
-        final String sql = "SELECT userId, email FROM finance.user";
+        final String sql = "SELECT * FROM user";
         return jdbc.query(sql, new UserMapper());
     }
 
@@ -40,7 +40,7 @@ public class UserDaoDB implements UserDao {
     // NOT TESTED
     @Override
     public User getUserById(String id) {
-        final String sql = "SELECT userId, email FROM finance.user WHERE userID = ?";
+        final String sql = "SELECT * FROM user WHERE userID = ?";
         return jdbc.queryForObject(sql, new UserMapper());
     }
 
@@ -50,7 +50,7 @@ public class UserDaoDB implements UserDao {
     public User addUser(User user) {
         final String INSERT_USER = "INSERT INTO user(userId, email) VALUES(?, ?)";
         jdbc.update(INSERT_USER,
-                user.getId(),
+                user.getUserId(),
                 user.getEmail());
         return user;
     }
@@ -59,15 +59,15 @@ public class UserDaoDB implements UserDao {
     // NOT TESTED
     @Override
     public void updateUser(User user) {
-        final String sql = "UPDATE finance.user SET email = ? WHERE userId = ?";
-        jdbc.update(sql, user.getId(), user.getEmail());
+        final String sql = "UPDATE user SET email = ? WHERE userId = ?";
+        jdbc.update(sql, user.getEmail(), user.getUserId());
 
     }
 
     // FUNCTIONAL
     @Override
     public void deleteUserById(String id) {
-        final String sql = "DELETE FROM finance.user WHERE userId = ?";
+        final String sql = "DELETE FROM user WHERE userId = ?";
         jdbc.update(sql, id);
     }
     
