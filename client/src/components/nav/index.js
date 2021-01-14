@@ -1,9 +1,11 @@
+
 import React, {useState, useEffect}  from "react";
 import { useUserContext } from '../firebase/userContext'
 import 'firebase/auth';
 import firebase from 'firebase/app';
 import { Link } from "react-router-dom";
 const auth = firebase.auth();
+import "../../styles.css"
 
 export default function Nav() {
   const [user, setUser] = useUserContext()

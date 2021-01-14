@@ -16,7 +16,7 @@ create table request(
     foreign key fkUserId(userId) references user(userId),
 
     reqTime datetime not null,
-    quantity dec(6,6) not null,
+    quantity dec(12,6) not null,
     stockCode varchar(4) not null,
     value dec(6,2) not null
 );
@@ -39,7 +39,7 @@ create table request(
     foreign key fkUserId(userId) references user(userId),
 
     reqTime datetime not null,
-    quantity dec(6,6) not null,
+    quantity dec(12,6) not null,
     stockCode varchar(4) not null,
     value dec(6,2) not null
 );
