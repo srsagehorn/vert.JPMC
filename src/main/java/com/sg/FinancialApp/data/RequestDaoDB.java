@@ -65,7 +65,7 @@ public class RequestDaoDB implements RequestDao {
 
     @Override
     @Transactional
-    public Request addRequest( Request request) {
+    public Request addRequest(Request request) {
         String INSERT_NEW_REQUEST = "INSERT INTO request (reqTime, quantity, stockCode, value) " +
                 "VALUES(?, ?, ?, ?);";
         
@@ -107,6 +107,7 @@ public class RequestDaoDB implements RequestDao {
         public Request mapRow(ResultSet rs, int index) throws SQLException {
             Request request = new Request();
             request.setId(rs.getInt("requestId"));
+            request.setUserId(rs.getString("userId"));
             request.setTimestamp(rs.getDate("reqTime"));
             request.setStockCode(rs.getString("stockCode"));
             request.setQuantity(rs.getFloat("quantity"));
