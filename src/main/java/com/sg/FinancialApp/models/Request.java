@@ -74,7 +74,7 @@ public class Request {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Request request = (Request) o;
-        return id == request.id && userId == request.userId && Float.compare(request.quantity, quantity) == 0 && timestamp.equals(request.timestamp) && stockCode.equals(request.stockCode) && value.equals(request.value);
+        return id == request.id && userId.equals(request.userId) && Float.compare(request.quantity, quantity) == 0 && timestamp.equals(request.timestamp) && stockCode.equals(request.stockCode) && value.equals(request.value);
     }
 
     @Override
