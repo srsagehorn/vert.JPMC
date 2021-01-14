@@ -11,10 +11,11 @@ import { useForm } from 'react-hook-form';
 
 import { useHistory } from 'react-router-dom'
 import { useUserContext } from '../firebase/userContext'
+// import firebaseConfig from '../firebase'
 import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
-import 'firebase/analytics';
+// import 'firebase/firestore';
+// import 'firebase/auth';
+// import 'firebase/analytics';
 
 const auth = firebase.auth();
 
@@ -100,13 +101,40 @@ export default function LoginForm() {
     )
     }
 
+    // function SignIn () {
+    //     const [user] = useUserContext()
+    //     const history = useHistory()
+    //     if (user) history.push("/summary")
+    //     const signInWithGoogle = () => {
+    //     const provider = new firebase.auth.GoogleAuthProvider();
+    //     auth.signInWithPopup(provider)
+    //     }
+    //     return (
+    //         <div>
+    //             <img src="https://img.icons8.com/color/24/000000/google-logo.png" alt = "google logo"/>
+    //             <Button className="sign-in g-signin2" onClick={signInWithGoogle}>Sign in with Google</Button>
+    //         </div>
+    //       )
+    // }
+
     function SignIn () {
         const [user] = useUserContext()
         const history = useHistory()
         if (user) history.push("/summary")
         const signInWithGoogle = () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider)
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider).then(function(result) {
+                // code which runs on success
+              }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                console.log(errorCode);
+                alert(errorCode);
+              
+                var errorMessage = error.message;
+                console.log(errorMessage);
+                alert(errorMessage);
+              });
         }
         return (
             <div>

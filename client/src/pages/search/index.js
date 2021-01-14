@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import Search from "../../components/Search"
-import Nav from '../../components/nav'
 import StockInfo from "../../components/StockInfo"
 import StockButton from "../../components/StockButton"
 import { StockInfoContext } from '../../contexts/StockInfoContext'
@@ -12,6 +11,8 @@ import theme from "../../themes/theme"
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
+
+
 
 const useStyles = makeStyles((theme) => ({
     loader: {
@@ -26,21 +27,21 @@ export default function SearchPage() {
     const [stockInfo, dispatchStockInfo] = useContext(StockInfoContext)
 
     return (
-        <div>
-            <ThemeProvider theme={theme}>
-                <Nav />
 
-                <Search />
 
+        <ThemeProvider theme={theme}>
+          
+            <Search />
+            <StockButton />
+        
+            <Grid container justify="center">
                 {stockInfo.isLoading ?
 
-                    <Grid container justify="center">
-                        <Grid item>
-                            <CircularProgress size={50} className={classes.loader} />
-                        </Grid>
+                    <Grid item>
+                        <CircularProgress size={50} className={classes.loader} />
                     </Grid>
                     :
-                    (Object.keys(stockInfo.stockSummary).length === 0) ?
+                    ((Object.keys(stockInfo.stockSummary).length === 0) ?
                         (
                             <Grid container justify="center" >
                                 <Grid item lg={6} md={6} style={{ margin: "3rem" }} >
@@ -54,15 +55,17 @@ export default function SearchPage() {
                                         />
                                     </Card>
                                 </Grid>
-                            </Grid>) :
-
+                            </Grid>) 
+                            :
 
                         (<>
-                            <StockButton />
+                        
                             <StockInfo />
                         </>)
+                        )
                 }
-            </ThemeProvider>
-        </div>
+            </Grid>
+        </ThemeProvider>
+
     )
 }

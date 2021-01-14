@@ -32,7 +32,7 @@ export default function StockButton() {
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 var yyyy = today.getFullYear();
-today = yyyy + '/' + mm + '/' + dd;
+today = yyyy + '-' + mm + '-' + dd;
 
 
 //         console.log(`This is the data ${JSON.stringify(data)}`)
@@ -75,6 +75,8 @@ today = yyyy + '/' + mm + '/' + dd;
 
 
     return (
+<>
+        {(Object.keys(stockInfo.stockSummary).length !== 0)  &&
         <div>
 
                 <form onSubmit={onSubmit}>
@@ -104,6 +106,7 @@ today = yyyy + '/' + mm + '/' + dd;
                 </form>
 
 
-        </div>
+        </div>}
+    </>
     )
 }
