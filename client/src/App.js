@@ -8,11 +8,13 @@ import StockInfoContextProvider from "./contexts/StockInfoContext"
 import { UserProvider } from './components/firebase/userContext'
 import React, { Component } from "react";
 import { BrowserRouter, Route} from "react-router-dom";
+import Nav from './components/nav'
 
 class App extends Component {
   render() {
     return (
       <UserProvider>
+        <Nav />
         <StockInfoContextProvider>
           <BrowserRouter>
             <Route exact path="/" component={Login} />
