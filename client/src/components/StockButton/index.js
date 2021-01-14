@@ -1,8 +1,9 @@
 import React from 'react'
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
 import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
+import Box from '@material-ui/core/Box';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,11 +12,12 @@ import { useForm } from 'react-hook-form';
 const useStyles = makeStyles((theme) => ({
     root: {
         margin: theme.spacing(1),
-        // display: 'flex',
+        
+
     },
-    form:{
+    form: {
         // maxWidth:"40%",
-        margin:"0 auto"
+
     }
 }));
 
@@ -55,24 +57,34 @@ export default function StockButton() {
 
     return (
         <div>
-            <form noValidate autoComplete="off" onSubmit={onSubmit}>
-                <Paper>
-                {/* <CardContent> */}
-                <Grid item container justify="center" sm={3} alignItems="center">
-                    <Grid item>
-                        <TextField inputRef={register} name="numberOfShares" size="small" id="outlined-basic" label="Number of shares" variant="outlined" />
-                    </Grid>
-                    <Grid item>
-                        <Button variant="outlined" color="primary" className={classes.root} type="submit">
-                            Track Stock Price
+
+            <Grid container justify="center">
+                {/* <form onSubmit={onSubmit}> */}
+                    {/* <Paper> */}
+                      
+
+                        <Grid item container xs={12} justify="center" alignItems="center" align="center" spacing={5}>
+                            <Grid item xs={6}>
+                        
+                                <TextField inputRef={register} name="numberOfShares" size="small" id="outlined-basic" label="Number of shares" variant="outlined" />
+                             
+                            </Grid>
+                            <Grid item xs={6}>
+                             
+                                <Button variant="outlined" color="primary" type="submit" >
+                                    Track Change
                     </Button>
-                    </Grid>
+
+                             
+                            </Grid>
+
+                        </Grid>
+                   
+                    {/* </Paper> */}
+                {/* </form> */}
+            </Grid>
 
 
-                </Grid>
-                {/* </CardContent> */}
-                </Paper>
-            </form>
         </div>
     )
 }
