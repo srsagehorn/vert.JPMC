@@ -40,43 +40,34 @@ public class RequestController {
     }
 
     // ------- REQUEST ------
-    //NOT TESTED
-    // NEED Request for time, stockCode, and value - POST
-
-//    @PostMapping("/request/{userId}/{time}/{stock}/{value}")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public Request addUser(@PathVariable String userId, @PathVariable Date time, @PathVariable String stock, @PathVariable String value) {
-//        Request r = new Request();
-//        r.setTimestamp(time);
-//        r.setStockCode(stock);
-//        r.setValue(value);
-//        return requestDao.addRequest(userId, r);
-//    }
+    // NOT TESTED
+    @PostMapping("/request")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity addRequest(@RequestBody Request request) {
+        request = requestDao.addRequest(request);
+        return ResponseEntity.ok(request);
+    }
 
     // NOT TESTED
-
-//    @DeleteMapping("/delete/request")
-//    public ResponseEntity deleteRequestBasedOnId(@RequestBody List<Request> requests) {
-//        requests.forEach(request -> requestDao.deleteRequestById(request.getId()));
-//        return new ResponseEntity(HttpStatus.NO_CONTENT);
-//    }
+    @DeleteMapping("/delete")
+    public ResponseEntity deleteRequestBasedOnId(@RequestBody List<Request> requests) {
+        requests.forEach(request -> requestDao.deleteRequestById(request.getId()));
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 
     // NOT TESTED
-
-//    @GetMapping("/requests/{userId}")
-//    public List<Request> getAllRequestsByUserId(@PathVariable String userId){
-//        return requestDao.getAllRequests(userId);
-//    }
+    @GetMapping("/request")
+    public ResponseEntity getAllRequestsByUserId(@RequestBody User user){
+        return ResponseEntity.ok(requestDao.getRequestsForUser(user));
+    }
 
     // ^------- REQUEST ------^
 
     //TESTED
-    @PostMapping("/create/{userId}/{email}")
+    @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
-    public User addUser(@PathVariable String userId, @PathVariable String email) {
-        User user = new User();
-        user.setId(userId);
-        user.setEmail(email);
-        return userDao.addUser(user);
+    public ResponseEntity addUser(@RequestBody User user) {
+        user = userDao.addUser(user);
+        return ResponseEntity.ok(user);
     }
 }
