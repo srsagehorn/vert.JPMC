@@ -21,6 +21,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { useForm } from 'react-hook-form';
 import { removeHyphenAddDot } from "../../utilities/StringFormatter"
+import EditIcon from '@material-ui/icons/Edit';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 function createData(name, symbol, dateAdded, prevSharePrice, currSharePrice, change) {
     let percentChange = (change / prevSharePrice) * 100
@@ -66,14 +68,14 @@ const headCells = [
     { id: 'name', numeric: false, disablePadding: true, label: 'Company' },
     { id: 'symbol', numeric: true, disablePadding: false, label: 'Symbol' },
     { id: 'dateAdded', numeric: true, disablePadding: false, label: 'Date Added' },
-    { id: 'prevSharePrice', numeric: true, disablePadding: false, label: 'Previous Price (USD)' },
-    { id: 'currSharePrice', numeric: true, disablePadding: false, label: 'Current Price (USD)' },
-    { id: 'change', numeric: true, disablePadding: false, label: 'Change (USD)' },
-    { id: 'percentChange', numeric: true, disablePadding: false, label: 'Percent Change (%)' }
+    { id: 'prevSharePrice', numeric: true, disablePadding: false, label: 'Previous Price' },
+    { id: 'currSharePrice', numeric: true, disablePadding: false, label: 'Current Price' },
+    { id: 'change', numeric: true, disablePadding: false, label: 'Change' },
+    { id: 'percentChange', numeric: true, disablePadding: false, label: '% Change' }
 ];
 
 function EnhancedTableHead(props) {
-    const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+    const { classes, deleteMode, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
     const createSortHandler = (property) => (event) => {
         onRequestSort(event, property);
     };
@@ -82,13 +84,17 @@ function EnhancedTableHead(props) {
         <TableHead>
             <TableRow>
                 <TableCell padding="checkbox">
-                    <Checkbox
-                        indeterminate={numSelected > 0 && numSelected < rowCount}
-                        checked={rowCount > 0 && numSelected === rowCount}
-                        onChange={onSelectAllClick}
-                        inputProps={{ 'aria-label': 'Select All Stocksj' }}
-                    />
+                    {deleteMode && (
+                        <Checkbox
+                            indeterminate={numSelected > 0 && numSelected < rowCount}
+                            checked={rowCount > 0 && numSelected === rowCount}
+                            onChange={onSelectAllClick}
+                            inputProps={{ 'aria-label': 'Select All Stocks' }}
+                        />
+
+                    )}
                 </TableCell>
+
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
@@ -152,29 +158,45 @@ const EnhancedTableToolbar = (props) => {
     return (
         <Toolbar
             className={clsx(classes.root, {
-                [classes.highlight]: numSelected > 0,
+                [classes.highlight]: props.deleteMode,
             })}
         >
-            {numSelected > 0 ? (
+            
+            {props.deleteMode &&
+            <Tooltip title="Cancel" >
+                <IconButton aria-label="cancel"
+                onClick={props.onDeleteModeClick}>
+                    <CancelIcon />
+                </IconButton>
+            </Tooltip>
+            
+            }
+
+            {props.deleteMode ? (
                 <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
                     {numSelected} selected
                 </Typography>
             ) : (
                     <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-                        Portfolio
+                        Stocks
                     </Typography>
                 )}
 
-            {numSelected > 0 ? (
-                <Tooltip title="Delete">
-                    <IconButton aria-label="delete" type="submit">
-                        <DeleteIcon />
-                    </IconButton>
-                </Tooltip>
+            {(props.deleteMode) ? (
+                <>
+                    <Tooltip title="Delete">
+                        <IconButton aria-label="delete" type="submit">
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
+
+                </>
             ) : (
-                    <Tooltip title="Filter list">
-                        <IconButton aria-label="filter list">
-                            <FilterListIcon />
+                    <Tooltip title="Edit list">
+                        <IconButton
+                            aria-label="edit list"
+                            onClick={props.onDeleteModeClick}>
+                            < EditIcon />
                         </IconButton>
                     </Tooltip>
                 )}
@@ -193,17 +215,21 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         color: "white",
-        width: '100%',
+        width: '95%',
         marginBottom: theme.spacing(2),
+        border: "5px solid rgba(21,244,238, 0.2)",
+        maxWidth: "100%",
+        margin: "0 auto"
     },
     table: {
         minWidth: 750,
+
     },
     tableRow: {
 
     },
     tableCellPositive: {
-       
+
         color: "rgb(57,255,20)"
     },
 
@@ -211,25 +237,25 @@ const useStyles = makeStyles((theme) => ({
         color: "rgb(255, 7, 58)"
     },
 
-    boxNegative:{
-        backgroundColor:"rgba(130,120,120, 0.20)",
-         display:"inline-block", 
-         borderRadius:"2px", 
-         padding:"0.2rem 0.8rem"
+    boxNegative: {
+        backgroundColor: "rgba(130,120,120, 0.20)",
+        display: "inline-block",
+        borderRadius: "2px",
+        padding: "0.2rem 0.8rem"
     },
 
-    boxPositive:{
-        backgroundColor:"rgba(130,130,130, 0.20)",
-         display:"inline-block", 
-         borderRadius:"2px", 
-         padding:"0.2rem 0.8rem"
+    boxPositive: {
+        backgroundColor: "rgba(130,130,130, 0.20)",
+        display: "inline-block",
+        borderRadius: "2px",
+        padding: "0.2rem 0.8rem"
     },
 
-    boxNeutral:{
-        backgroundColor:"rgba(100,100,100, 0.2)",
-         display:"inline-block", 
-         borderRadius:"2px", 
-         padding:"0.2rem 0.8rem"
+    boxNeutral: {
+        backgroundColor: "rgba(100,100,100, 0.2)",
+        display: "inline-block",
+        borderRadius: "2px",
+        padding: "0.2rem 0.8rem"
     },
 
 
@@ -249,11 +275,12 @@ const useStyles = makeStyles((theme) => ({
 export default function PortfolioTable() {
     const classes = useStyles();
     const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('calories');
+    const [orderBy, setOrderBy] = React.useState('name');
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [deleteMode, setDeleteMode] = React.useState(false);
 
     //Code needed for react hook form
     const { handleSubmit, register } = useForm();
@@ -273,15 +300,17 @@ export default function PortfolioTable() {
     });
 
     const handleRequestSort = (event, property) => {
+
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
     };
 
     const handleSelectAllClick = (event) => {
+
         if (event.target.checked) {
-            const newSelecteds = rows.map((n) => n.name);
-            setSelected(newSelecteds);
+            const newSelectedIds = rows.map((n) => n.symbol);
+            setSelected(newSelectedIds);
             return;
         }
         setSelected([]);
@@ -316,27 +345,29 @@ export default function PortfolioTable() {
         setPage(0);
     };
 
-    const handleChangeDense = (event) => {
-        setDense(event.target.checked);
+    const handleDeleteMode = (event) => {
+        setDeleteMode(!deleteMode)
+        setSelected([])
     };
 
+
     //conditional logic to render the color of the text
-    const renderTextColor = (value) =>{
-        if (value>0){
+    const renderTextColor = (value) => {
+        if (value > 0) {
             return classes.tableCellPositive
-        }else if(value<0){
+        } else if (value < 0) {
             return classes.tableCellNegative
-        }else{
-            return 
+        } else {
+            return
         }
     }
 
-    const renderBoxColor =(value)=>{
-        if (value>0){
+    const renderBoxColor = (value) => {
+        if (value > 0) {
             return classes.boxPositive
-        }else if(value<0){
+        } else if (value < 0) {
             return classes.boxNegative
-        }else{
+        } else {
             return classes.boxNeutral
         }
     }
@@ -349,7 +380,7 @@ export default function PortfolioTable() {
         <div className={classes.root}>
             <form onSubmit={onSubmit}>
                 <Paper className={classes.paper}>
-                    <EnhancedTableToolbar numSelected={selected.length} />
+                    <EnhancedTableToolbar numSelected={selected.length} onDeleteModeClick={handleDeleteMode} deleteMode={deleteMode} />
                     <TableContainer>
                         <Table
                             className={classes.table}
@@ -365,6 +396,8 @@ export default function PortfolioTable() {
                                 onSelectAllClick={handleSelectAllClick}
                                 onRequestSort={handleRequestSort}
                                 rowCount={rows.length}
+                                deleteMode={deleteMode}
+
                             />
                             <TableBody>
                                 {stableSort(rows, getComparator(order, orderBy))
@@ -385,15 +418,19 @@ export default function PortfolioTable() {
                                                 className={classes.tableRow}
 
                                             >
+
                                                 <TableCell padding="checkbox">
-                                                    <Checkbox
-                                                        checked={isItemSelected}
-                                                        inputProps={{ 'aria-labelledby': labelId }}
-                                                        //fields needed for react hook form
-                                                        name={row.symbol}
-                                                        inputRef={register}
-                                                    />
+                                                    {deleteMode &&
+                                                        <Checkbox
+                                                            checked={isItemSelected}
+                                                            inputProps={{ 'aria-labelledby': labelId }}
+                                                            //fields needed for react hook form
+                                                            name={row.symbol}
+                                                            inputRef={register}
+                                                        />}
                                                 </TableCell>
+
+
                                                 <TableCell component="th" id={labelId} scope="row" padding="none">
                                                     {row.name}
                                                 </TableCell>
@@ -401,27 +438,27 @@ export default function PortfolioTable() {
                                                 <TableCell align="right">{row.dateAdded}</TableCell>
                                                 <TableCell align="right">{row.prevSharePrice}</TableCell>
                                                 <TableCell align="right"
-                                                 className={row.currSharePrice < row.prevSharePrice ? classes.tableCellNegative : classes.tableCellPositive}
+                                                    className={row.currSharePrice < row.prevSharePrice ? classes.tableCellNegative : classes.tableCellPositive}
                                                 >
-                                                       <Box className={renderBoxColor(row.percentChange)}>
+                                                    <Box className={renderBoxColor(row.percentChange)}>
 
-                                                    {row.currSharePrice}
-                                                       </Box>
-                                                       </TableCell>
-                                                <TableCell 
-                                                className={renderTextColor(row.change)}
-                                                align="right">
-                                                     <Box className={renderBoxColor(row.percentChange)}>
-                                                     {row.change}
-                                                     </Box>
-                                                   </TableCell>
+                                                        {row.currSharePrice}
+                                                    </Box>
+                                                </TableCell>
+                                                <TableCell
+                                                    className={renderTextColor(row.change)}
+                                                    align="right">
+                                                    <Box className={renderBoxColor(row.percentChange)}>
+                                                        {row.change}
+                                                    </Box>
+                                                </TableCell>
                                                 <TableCell
                                                     className={renderTextColor(row.percentChange)}
                                                     align="right">
-                                                        <Box className={renderBoxColor(row.percentChange)}>
-                                                    {row.percentChange < 0 ? `${row.percentChange}` : `+${row.percentChange}`}
+                                                    <Box className={renderBoxColor(row.percentChange)}>
+                                                        {row.percentChange < 0 ? `${row.percentChange}` : `+${row.percentChange}`}
 
-                                                        </Box>
+                                                    </Box>
 
                                                 </TableCell>
                                             </TableRow>

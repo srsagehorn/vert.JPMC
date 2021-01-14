@@ -13,7 +13,15 @@ import {StockInfoContext} from '../../contexts/StockInfoContext'
 const useStyles = makeStyles((theme) => ({
     input: {
         margin: theme.spacing(2)
-    }
+    },
+    option: {
+        backgroundColor: theme.palette.background.default, 
+        "&:hover": {
+            backgroundColor: theme.palette.action.selected
+          }
+      },
+
+    
 }));
 
 //Necessary for fuzzy matching with match-sorter
@@ -44,6 +52,9 @@ export default function Search() {
 
             const targetPrice = await axios.get(`https://finnhub.io/api/v1/stock/price-target?symbol=${data.symbol}&token=${process.env.REACT_APP_FINNHUB_API_KEY}`);
             await console.log(targetPrice)
+
+            const stockPrice = await axios.get(`https://finnhub.io/api/v1/stock/price-target?symbol=${data.symbol}&token=${process.env.REACT_APP_FINNHUB_API_KEY}`);
+            await console.log(stockPrice)
 
             await setTimeout(function(){
                 dispatchStockInfo(
@@ -92,6 +103,10 @@ export default function Search() {
                     <Card>
                         <form onSubmit={onSubmit}>
                             <Autocomplete
+                    classes={{
+                        option: classes.option, 
+                       
+                    }}
                                 type="submit"
                                 //filter option used for fuzzy matching with match-sorter, see MU docs on autocomplete
                                 filterOptions={filterOptions}
@@ -102,7 +117,7 @@ export default function Search() {
                                     handleChange(newInputValue)
                                 }}
                                 options={tickerOptions.map((option) => `${option.symbol}  -  ${option.name.length < 35 ? option.name : option.name.substring(0, 35) + "..."}`)}
-        
+                                
                                 renderInput={(params) => (
                                     <TextField {...params}
                                         label="Search Ticker Symbol"
