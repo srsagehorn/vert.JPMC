@@ -23,6 +23,8 @@ export default function stockInfoReducer(state, action){
                 isError: true,
             }
 
+            
+
         default:
             throw new Error();
     }
