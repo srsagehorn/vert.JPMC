@@ -60,6 +60,11 @@ public class RequestController {
     public ResponseEntity getAllRequestsByUserId(@RequestBody User user){
         return ResponseEntity.ok(requestDao.getRequestsForUser(user));
     }
+    
+    @GetMapping("/request/{requestId}")
+    public ResponseEntity getRequestById(@PathVariable int requestId) {
+        return ResponseEntity.ok(requestDao.getRequestById(requestId));
+    }
 
     // ^------- REQUEST ------^
 
