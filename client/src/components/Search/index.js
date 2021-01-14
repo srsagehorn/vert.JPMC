@@ -65,7 +65,7 @@ export default function Search() {
                         },
                         stockSummary:{
                             ...stockSummary.data
-                        }
+                        }, 
                     }
                 }
             )
@@ -123,7 +123,7 @@ export default function Search() {
                                         label="Search Ticker Symbol"
                                         inputRef={register}
                                         name="symbol"
-                                        size={"small"}
+                                        size={"medium"}
                                         variant="outlined" />
                                 )}
                             />
