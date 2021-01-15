@@ -12,9 +12,9 @@ export default function SummaryPage() {
     return (
         <div>
             <h1 className = "center">Top Stocks To Watch</h1>
-              <ThemeProvider theme={theme}>
+//               <ThemeProvider theme={theme}>
             <PortfolioTable />
-                         </ThemeProvider> 
+//                          </ThemeProvider> 
             <News />
 
            
