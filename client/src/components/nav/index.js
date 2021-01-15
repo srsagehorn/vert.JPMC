@@ -38,7 +38,7 @@ export default function Nav() {
             <div id = "userAvatar" className = "circle" onClick= {triggerDropDown} ></div>
             {displayName}
             <ul>
-              <li id = "logout" display = "none"> <a href = "/"></a>Log Out</li>
+              <li id = "logout" display = "none">Log Out</li>
             </ul>
         </li>
       </ul>

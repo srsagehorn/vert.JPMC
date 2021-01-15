@@ -19,7 +19,7 @@ body {
 }
 
 nav {
-  background-color: #1d1d24 !important;
+  background-color: #1d1d24;
   margin-bottom: 50px;
   height: 80px;
   line-height: 80px;
@@ -32,6 +32,11 @@ nav {
   display: inline-block;
   margin: 10px;
   vertical-align: middle;
+  border-radius: 50%;
+}
+
+.dropdown-trigger:hover {
+  background-color: #1d1d24;
 }
 
 #userInfo {
@@ -67,4 +72,8 @@ nav ul li ul li {
 
 nav ul {
   display: inline;
+}
+
+#newsHeader {
+  text-align: center;
 }
