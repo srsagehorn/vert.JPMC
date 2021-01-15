@@ -41,7 +41,7 @@ export default function Search() {
         //get rid of hyphen and isolate ticker symbol in string
         if (data.symbol.indexOf("-") !== -1) {
             var array = data.symbol.split("-");
-            data.symbol = array[0].trim().toLowerCase();
+            data.symbol = array[0].trim().toUpperCase();
         }
         dispatchStockInfo({type:'API_FETCH_INIT'})
        
@@ -53,10 +53,11 @@ export default function Search() {
             const targetPrice = await axios.get(`https://finnhub.io/api/v1/stock/price-target?symbol=${data.symbol}&token=${process.env.REACT_APP_FINNHUB_API_KEY}`);
             await console.log(targetPrice)
 
-            const stockPrice = await axios.get(`https://finnhub.io/api/v1/stock/price-target?symbol=${data.symbol}&token=${process.env.REACT_APP_FINNHUB_API_KEY}`);
+            const stockPrice = await axios.get(`https://finnhub.io/api/v1/quote?symbol=${data.symbol}&token=${process.env.REACT_APP_FINNHUB_API_KEY}`);
+console.log(data.symbol)
             await console.log(stockPrice)
 
-            await setTimeout(function(){
+          
                 dispatchStockInfo(
                     {type:'API_FETCH_SUCCESS',
                     payload:{
@@ -65,11 +66,14 @@ export default function Search() {
                         },
                         stockSummary:{
                             ...stockSummary.data
+                        }, 
+                        stockPrice:{
+                            ...stockPrice.data
                         }
                     }
                 }
             )
-           }, 2000)
+        
 
         } catch(error){
             console.log("error fetching stock data") 
@@ -122,7 +126,7 @@ export default function Search() {
                                         label="Search Ticker Symbol"
                                         inputRef={register}
                                         name="symbol"
-                                        size={"small"}
+                                        size={"medium"}
                                         variant="outlined" />
                                 )}
                             />
