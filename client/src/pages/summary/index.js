@@ -15,7 +15,7 @@ export default function SummaryPage() {
 //               <ThemeProvider theme={theme}>
             <PortfolioTable />
 //                          </ThemeProvider> 
-            <News />
+//             <News />
 
            
              {/* <Grid container justify="center" spacing={3}>
