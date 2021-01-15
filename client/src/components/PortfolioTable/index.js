@@ -24,17 +24,21 @@ import { removeHyphenAddDot } from "../../utilities/StringFormatter"
 import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
 
-function createData(name, symbol, dateAdded, prevSharePrice, currSharePrice, change) {
+function createData(name, symbol, dateAdded, prevSharePrice, currSharePrice) {
+    let change = (currSharePrice - prevSharePrice).toFixed(2)
+    
     let percentChange = (change / prevSharePrice) * 100
     percentChange = (Math.round(percentChange * 100) / 100).toFixed(2);
     return { name, symbol, dateAdded, prevSharePrice, currSharePrice, change, percentChange };
 }
 
 const rows = [
-    createData("Royal Dutch Shell", "RDS-B", "1/01/2020", 38.70, 38.17, -0.53),
-    createData("British American Tobacco", "BTI", "1/03/2020", 37.50, 37.70, 0.20),
-    createData('Apple', "AAPL", "1/05/2020", 125.00, 129.85, 4.85),
-    createData('Apple2', "APL", "1/05/2020", 125.00, 129.85, 4.85),
+    createData("Royal Dutch Shell", "RDS-B", "1/01/2020", 38.70, 38.17),
+    createData("British American Tobacco", "BTI", "1/03/2020", 37.50, 37.70),
+    createData('Apple', "AAPL", "1/05/2020", 125.00, 129.85),
+    createData('Tesla', "TSLA", "03/27/2020", 103.00, 845.00),
+    createData('Netflix', "NFLX", "01/03/2020", 507.00, 501.00),
+    createData('Facebook', "FB", "01/03/2020", 258.00, 248.00),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -449,7 +453,7 @@ export default function PortfolioTable() {
                                                     className={renderTextColor(row.change)}
                                                     align="right">
                                                     <Box className={renderBoxColor(row.percentChange)}>
-                                                        {row.change}
+                                                    {row.change < 0 ? `${row.change}`:`+${row.change}`}
                                                     </Box>
                                                 </TableCell>
                                                 <TableCell

@@ -22,10 +22,10 @@ const useStyles = makeStyles((theme) => ({
         border: "4px solid rgba(253,216,53, 0.4)"
     },
     greenStockPrice: {
-        color: "green"
+        color: "rgb(57,255,20)"
     },
     redStockPrice: {
-        color: "red"
+        color: "rgb(255, 7, 58)"
     },
 }));
 
