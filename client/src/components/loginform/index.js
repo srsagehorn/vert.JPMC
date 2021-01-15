@@ -101,22 +101,6 @@ export default function LoginForm() {
     )
     }
 
-    // function SignIn () {
-    //     const [user] = useUserContext()
-    //     const history = useHistory()
-    //     if (user) history.push("/summary")
-    //     const signInWithGoogle = () => {
-    //     const provider = new firebase.auth.GoogleAuthProvider();
-    //     auth.signInWithPopup(provider)
-    //     }
-    //     return (
-    //         <div>
-    //             <img src="https://img.icons8.com/color/24/000000/google-logo.png" alt = "google logo"/>
-    //             <Button className="sign-in g-signin2" onClick={signInWithGoogle}>Sign in with Google</Button>
-    //         </div>
-    //       )
-    // }
-
     function SignIn () {
         const [user] = useUserContext()
         const history = useHistory()
@@ -137,7 +121,7 @@ export default function LoginForm() {
               });
         }
         return (
-            <div>
+            <div className = "center">
                 <img src="https://img.icons8.com/color/24/000000/google-logo.png" alt = "google logo"/>
                 <Button className="sign-in g-signin2" onClick={signInWithGoogle}>Sign in with Google</Button>
             </div>

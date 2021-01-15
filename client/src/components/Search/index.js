@@ -98,7 +98,6 @@ console.log(data.symbol)
 
     }
 
-
     return (
         <div>
 
