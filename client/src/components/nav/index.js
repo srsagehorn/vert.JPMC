@@ -4,8 +4,8 @@ import { useUserContext } from '../firebase/userContext'
 import 'firebase/auth';
 import firebase from 'firebase/app';
 import { Link } from "react-router-dom";
-const auth = firebase.auth();
 import "../../styles.css"
+const auth = firebase.auth();
 
 export default function Nav() {
   const [user, setUser] = useUserContext()
@@ -26,8 +26,8 @@ export default function Nav() {
   return(
     <nav>
     <div className="nav-wrapper">
-      <a href="/" className="brand-logo blueText" id = "portfolio">Portfolio
-      <img src = '../../logo.png'></img>
+      <a href="/" className="brand-logo blueText" id = "portfolio">
+      <img src = 'logo.png' style={{width:"6rem"}}></img>
       </a>
       <ul id="nav-mobile" className="right hide-on-med-and-down">
         <li><a href="/summary">Summary</a></li>
