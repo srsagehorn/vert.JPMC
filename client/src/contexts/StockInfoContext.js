@@ -6,6 +6,8 @@ export const StockInfoContext = createContext();
 const initialState = {
     targetPrice:{}, 
     stockSummary:{},
+    stockPrice: {},
+    quantity:"",
     isLoading: false,
     isError: false,
 }

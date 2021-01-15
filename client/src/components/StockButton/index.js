@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -8,12 +8,12 @@ import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm } from 'react-hook-form';
+import axios from 'axios'
+import {StockInfoContext} from '../../contexts/StockInfoContext'
 
 const useStyles = makeStyles((theme) => ({
     root: {
         margin: theme.spacing(1),
-        
-
     },
     form: {
         // maxWidth:"40%",
@@ -24,35 +24,54 @@ const useStyles = makeStyles((theme) => ({
 export default function StockButton() {
     const classes = useStyles();
     const { handleSubmit, register } = useForm();
+    const [stockInfo, dispatchStockInfo] = useContext(StockInfoContext)
 
     const onSubmit = handleSubmit(async (data) => {
+        // getting today's data
+        var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+today = yyyy + '-' + mm + '-' + dd;
 
-        // dispatchStockInfo({ type: 'API_FETCH_INIT' })
 
-        // try {
-        //     const stockSummary = await axios.get(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${data.symbol}&apikey=${process.env.REACT_APP_ALPHA_VANTAGE_API_KEY}`);
-        //     await console.log(`test ${stockSummary}`)
+//         console.log(`This is the data ${JSON.stringify(data)}`)
+//         console.log(`This is the stock info ${JSON.stringify(stockInfo)}`)
 
-        //     dispatchStockInfo(
-        //         {
-        //             type: 'API_FETCH_SUCCESS',
-        //             payload: {
-        //                 targetPrice: {
-        //                     ...targetPrice.data
-        //                 },
-        //                 stockSummary: {
-        //                     ...stockSummary.data
-        //                 }
-        //             }
-        //         }
-        //     )
-
-        // } catch (error) {
-        //     console.log("error fetching stock data")
-        //     dispatchStockInfo({ type: 'API_FETCH_FAILURE' })
-        // }
-
-    });
+//         const dataObject = {
+//                     quantity: data.quantity,
+//                     userId: "ASDSAGCXG",
+//                     timestamp: today,
+//                     stockCode: stockInfo.stockSummary.Symbol,
+//                     value: 3.29
+//                 }
+//         console.log(JSON.stringify(dataObject))
+          
+        const response = await axios({
+            method: 'post',
+            url: 'http://localhost:8080/api/request',
+            data: {
+                quantity: data.quantity,
+                userId: "ASDSAGCXG",
+                timestamp: today,
+                stockCode: stockInfo.stockSummary.Symbol,
+                value: 3.29
+            }
+          });
+   
+        
+        // const response = await axios({
+        //     method: 'post',
+        //     url: 'http://localhost:8080/api/request',
+        //     data: {
+        //         quantity: 0.1,
+        //         userId: "ASDSAGCXG",
+        //         timestamp: "2017-06-15",
+        //         stockCode: "AAPL",
+        //         value: 3.29
+        //     }
+        //   });
+    })
 
 
     return (
@@ -66,7 +85,7 @@ export default function StockButton() {
                         <Grid item container xs={7} justify="center" alignItems="center" align="center" spacing={2}>
                             <Grid item xs={3}>
                         
-                                <TextField inputRef={register} name="numberOfShares" size="small" id="outlined-basic" label="Number of shares" variant="outlined" />
+                                <TextField inputRef={register} name="quantity" size="small" id="outlined-basic" label="Number of shares" variant="outlined" />
                              
                             </Grid>
                             <Grid item xs={3}>
