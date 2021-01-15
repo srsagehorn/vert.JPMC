@@ -221,7 +221,7 @@ const useStyles = makeStyles((theme) => ({
         color: "white",
         width: '95%',
         marginBottom: theme.spacing(2),
-        border: "5px solid rgba(21,244,238, 0.2)",
+        // border: "5px solid rgba(21,244,238, 0.2)",
         maxWidth: "100%",
         margin: "0 auto"
     },

@@ -14,13 +14,14 @@ body {
 }
 
 #userInfo {
-  background-color: #28282e;
+  background-color: #4d4d50;
   border-radius: 10px;
+  padding: 10px;
 }
 
 nav {
   background-color: #1d1d24;
-  margin-bottom: 50px;
+  margin-bottom: 70px;
   height: 80px;
   line-height: 80px;
 }
@@ -35,24 +36,11 @@ nav {
   border-radius: 50%;
 }
 
-.dropdown-trigger:hover {
-  background-color: #1d1d24;
-}
-
-#userInfo {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
 #portfolio {
   color: #0058db;
   font-weight: 700;
   padding-left: 20px;
   text-decoration: none;
-}
-
-nav {
-  align-items: right;
 }
 
 nav ul li {
@@ -76,4 +64,38 @@ nav ul {
 
 #newsHeader {
   text-align: center;
+}
+
+.newsCard {
+  display: inline-block;
+  margin: 10px;
+  width: 30%;
+}
+
+.center {
+  margin-right: center;
+  margin-left: center;
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+#signout {
+  font-size: 12px;
+  text-decoration: underline;
+  display: block;
+  color: white;
+  line-height: 1.5em;
+}
+
+#logo {
+  height: 120px;
+  padding-left: 30px;
+}
+
+h1 {
+  color: #0058d8;
+  font-size: 30px;
 }
