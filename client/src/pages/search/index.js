@@ -11,6 +11,7 @@ import theme from "../../themes/theme"
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
+import Paper from "@material-ui/core/Paper";
 
 
 
@@ -19,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
         color: "rgba(21,244,238)",
         margin: "30px"
     }
+
 }));
 
 
@@ -43,9 +45,12 @@ export default function SearchPage() {
                     :
                     ((Object.keys(stockInfo.stockSummary).length === 0) ?
                         (
-                            <Grid container justify="center" >
-                                <Grid item lg={6} md={6} style={{ margin: "3rem" }} >
-                                    <Card>
+                    
+
+                           
+                            <Grid container justify="center" spacing={3}>
+                                <Grid item lg={6} md={6} style={{ margin: "3rem"}} >
+                                    <Card style={{ padding: "1rem"}}>
                                         <CardMedia
                                             component="img"
                                             //   alt={`${title}`}
@@ -55,7 +60,8 @@ export default function SearchPage() {
                                         />
                                     </Card>
                                 </Grid>
-                            </Grid>) 
+                            </Grid>
+                            ) 
                             :
 
                         (<>
